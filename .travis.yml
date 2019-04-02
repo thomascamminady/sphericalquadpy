@@ -13,9 +13,6 @@ addons:
 before_install:
   - pip install pytest pytest-cov pylint
 
-install:
-  - pip install .
-
 script:
   - pylint sphericalquadpy/
   - pylint test/*.py
