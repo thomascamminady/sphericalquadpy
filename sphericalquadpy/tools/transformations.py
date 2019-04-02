@@ -5,7 +5,8 @@ Points are assumed to live on the unit sphere.
 The notation is consistent with the one found here:
 http://mathworld.wolfram.com/SphericalCoordinates.html
 """
-
+# pylint: disable=C0103
+# pylint: disable=E1111
 from numpy import arctan2, arccos, cos, sin, zeros
 from numpy.linalg import norm
 
