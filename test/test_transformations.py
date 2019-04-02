@@ -5,7 +5,9 @@ consecutively we end up at the same points.
 
 from numpy import array, pi
 from numpy.linalg import norm
-from tools.transformations import xyz2thetaphi, thetaphi2xyz
+import pytest
+import sphericalquadpy
+from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz
 
 
 def test_xyz2thetaphi2xyz():
