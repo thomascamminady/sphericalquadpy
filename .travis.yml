@@ -1,0 +1,26 @@
+dist: trusty
+
+language: python
+
+python:
+    - '3.6'
+
+addons:
+  apt:
+    packages:
+      - python3-numpy
+
+before_install:
+  - pip install pytest pytest-cov pylint
+
+install:
+  - pip install .
+
+script:
+  - pylint sphericalquadpy/
+  - pylint test/*.py
+  - cd test &&  pytest --cov sphericalquadpy
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
