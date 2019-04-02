@@ -3,6 +3,7 @@ and vice versa are implemented such that when applying both of them
 consecutively we end up at the same points.
 """
 
+import pytest
 from numpy import array, pi
 from numpy.linalg import norm
 from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz
@@ -37,3 +38,21 @@ def test_thetaphi2xyz2thetaphi():
     xyz = thetaphi2xyz(poles)
     newpoles = xyz2thetaphi(xyz)
     assert norm(poles - newpoles) < 1.0e-14
+
+
+def test_xyz2thetaphiDimensionException():
+    invalidpoint = array([[1, 0, 0, 0]])
+    with pytest.raises(Exception):
+        _ = xyz2thetaphi(invalidpoint)
+
+
+def test_thetaphi2xyzDimensionException():
+    invalidpoint = array([[pi, pi, 0]])
+    with pytest.raises(Exception):
+        _ = thetaphi2xyz(invalidpoint)
+
+
+def test_xyz2thetaphiPointNotOnUnitSphereException():
+    invalidpoint = array([[1.1, 0, 0, ]])
+    with pytest.raises(Exception):
+        _ = xyz2thetaphi(invalidpoint)
