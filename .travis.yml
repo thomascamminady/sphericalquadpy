@@ -8,15 +8,15 @@ python:
 addons:
   apt:
     packages:
-      - python3-numpy
+      - python3-pip
 
 before_install:
-  - pip install pytest pytest-cov pylint
+  - pip3 install -U pytest pytest-cov pylint numpy
 
 script:
   - pylint sphericalquadpy/
   - pylint test/*.py
-  - cd test &&  pytest --cov sphericalquadpy
+  - cd test/ &&  pytest --cov sphericalquadpy
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
