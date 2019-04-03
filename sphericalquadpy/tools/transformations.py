@@ -31,15 +31,16 @@ def xyz2thetaphi(xyz):
 
     n, dim = xyz.shape
     if not dim == 3:
-        raise ValueError('We require points in 3D, not %dD.' % (dim,))
+        raise ValueError("We require points in 3D, not %dD." % (dim,))
     thetaphi = zeros((n, 2))
     for i in range(n):
         x, y, z = xyz[i, :]
         r = norm([x, y, z])
         if not abs(r - 1.0) < 1.0e-14:
-            raise ValueError('Point %i does not live on the unit sphere. '
-                             'The coordinates are (%d,%d,%d) wit norm %d.'
-                             % (i, x, y, z, r))
+            raise ValueError(
+                "Point %i does not live on the unit sphere. "
+                "The coordinates are (%d,%d,%d) wit norm %d." % (i, x, y, z, r)
+            )
         thetaphi[i, 0] = arctan2(xyz[i, 1], xyz[i, 0])
         thetaphi[i, 1] = arccos(xyz[i, 2])
     return thetaphi
@@ -64,7 +65,7 @@ def thetaphi2xyz(thetaphi):
 
     n, dim = thetaphi.shape
     if not dim == 2:
-        raise ValueError('We require points in 2D, not %dD.' % (dim,))
+        raise ValueError("We require points in 2D, not %dD." % (dim,))
     xyz = zeros((n, 3))
     for i in range(n):
         theta, phi = thetaphi[i, :]
