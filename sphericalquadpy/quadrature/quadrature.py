@@ -52,15 +52,15 @@ class Quadrature(metaclass=ABCMeta):
         If nq is specified, we choose the order according to
         getcorrespondingorder.
         """
-        if not len(kwargs) == 1:
+        if len(kwargs) != 1:
             raise ValueError("Exactly one keyword has to be given.")
 
         order = None
         if "order" in kwargs:
             order = kwargs["order"]
         elif "nq" in kwargs:
-            nq = kwargs["nq"]
-            order = self.getcorrespondingorder(nq)
+            nquadpoints = kwargs["nq"]
+            order = self.getcorrespondingorder(nquadpoints)
         else:
             raise ValueError("Keyword has to be order or nq.")
 
@@ -84,14 +84,16 @@ class Quadrature(metaclass=ABCMeta):
         """
         if isinstance(functions, types.FunctionType):  # no array of functions
             return dot(
-                self.weights, functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+                self.weights,
+                functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
             )
 
         # if we have an array of functions proceed here:
         results = zeros(len(functions))
         for i, func in enumerate(functions):
             results[i] = dot(
-                self.weights, func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+                self.weights,
+                func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
             )
         return results
 
