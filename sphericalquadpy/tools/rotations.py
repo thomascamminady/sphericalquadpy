@@ -13,19 +13,16 @@ def rotate(axis, angle, xyz):
     rot = rotationmatrix(axis, angle)
     if len(xyz.shape) == 1:  # just one point
         if not len(xyz) == 3:
-            raise ValueError(
-                "Points have to either be of shape (3,) or (n,3). ")
+            raise ValueError("Points have to either be of shape (3,) or (n,3). ")
         return multiply(rot, xyz)
     if len(xyz.shape) == 2:
         # we assume xyz to be of shape n x 3
         if not xyz.shape[1] == 3:
-            raise ValueError(
-                "Points have to either be of shape (3,) or (n,3). ")
+            raise ValueError("Points have to either be of shape (3,) or (n,3). ")
 
         return matmul(rot, xyz.T).T
 
-    raise ValueError(
-        "Points have to either be of shape (3,) or (n,3). ")
+    raise ValueError("Points have to either be of shape (3,) or (n,3). ")
 
 
 def randomaxisrotate(angle, xyz):

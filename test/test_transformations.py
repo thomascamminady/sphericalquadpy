@@ -15,8 +15,7 @@ def test_xyz2thetaphi_then_thetaphi2xyz():
     transformation back to (x,y,z)."""
 
     poles = array(
-        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0],
-         [0, 0, -1]]
+        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0], [0, 0, -1]]
     )
     thetaphi = xyz2thetaphi(poles)
     newpoles = thetaphi2xyz(thetaphi)

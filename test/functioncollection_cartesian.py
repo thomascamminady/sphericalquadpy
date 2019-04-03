@@ -5,7 +5,7 @@ and return a scalar f(x,y,z), together with the known integral.
 The inputs x,y and z can also be numpy arrays, then also f(x,y,z) is an
 array of the same length."""
 
-from numpy import pi, ones, inf
+from numpy import pi, inf
 from sphericalquadpy.tools.sphericalharmonics import ylm
 
 

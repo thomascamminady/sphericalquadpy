@@ -1,9 +1,13 @@
 import pytest
-from numpy import array, pi
+from numpy import pi
 from numpy.random import randn, rand
 from numpy.linalg import norm
-from sphericalquadpy.tools.rotations import rotate, randomrotate, \
-    randomaxisrotate, randomanglerotate, rotationmatrix
+from sphericalquadpy.tools.rotations import (
+    rotate,
+    randomrotate,
+    randomaxisrotate,
+    randomanglerotate,
+)
 
 
 def test_rotatedpointsareonsphere():

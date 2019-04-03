@@ -1,11 +1,11 @@
-import pytest
 from numpy import pi
 from numpy.random import seed
 from sphericalquadpy.montecarlo.montecarlo import MonteCarlo
 
 
 # remove randomness for different test runs
-seed(1234)
+seed(12345)
+
 
 def test_quadratureweights_sum_to_4pi():
     Q = MonteCarlo(10)
@@ -22,13 +22,13 @@ def test_integration_decreasewithorder_singlefunction_but_as_array():
     def f(x, y, z):
         return x * y * z
 
-    Q1 = MonteCarlo(10)
+    Q1 = MonteCarlo(1)
     v1 = Q1.integrate([f])
 
-    Q2 = MonteCarlo(200)
+    Q2 = MonteCarlo(20)
     v2 = Q2.integrate([f])
 
-    Q3 = MonteCarlo(4000)
+    Q3 = MonteCarlo(400)
     v3 = Q3.integrate([f])
 
     Q4 = MonteCarlo(80000)
@@ -42,13 +42,13 @@ def test_integration_decreasewithorder_singlefunction():
     def f(x, y, z):
         return x * y * z
 
-    Q1 = MonteCarlo(10)
+    Q1 = MonteCarlo(1)
     v1 = Q1.integrate(f)
 
-    Q2 = MonteCarlo(200)
+    Q2 = MonteCarlo(20)
     v2 = Q2.integrate(f)
 
-    Q3 = MonteCarlo(4000)
+    Q3 = MonteCarlo(400)
     v3 = Q3.integrate(f)
 
     Q4 = MonteCarlo(80000)

@@ -3,7 +3,7 @@ from scipy.integrate import dblquad
 from numpy import conj, sin, pi, array
 from numpy.linalg import norm
 from sphericalquadpy.tools.sphericalharmonics import ylm
-from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz
+from sphericalquadpy.tools.transformations import xyz2thetaphi
 
 
 def test_integrate_to_unity():
@@ -54,8 +54,7 @@ def test_multievaluate_xyz():
 
 def test_duality_spherical_cartesian():
     poles = array(
-        [[+1.0, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0],
-         [0, 0, -1]]
+        [[+1.0, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0], [0, 0, -1]]
     )
     valxyz = ylm(1, 2, poles[:, 0], poles[:, 1], poles[:, 2])
 

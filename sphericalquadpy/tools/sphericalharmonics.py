@@ -1,6 +1,7 @@
 """Redefines the spherical harmonics interface from scipy."""
 # pylint: disable=C0103
 # pylint: disable=E0611
+
 from numpy import stack
 from scipy.special import sph_harm
 from sphericalquadpy.tools.transformations import xyz2thetaphi
