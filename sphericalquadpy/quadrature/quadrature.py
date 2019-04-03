@@ -43,10 +43,30 @@ class Quadrature(metaclass=ABCMeta):
             the specified order.
         """
 
-    def __init__(self, order):
+    def __init__(self, **kwargs):
         """The init method sets xyz (the quadrature points) and weights
         (the quadrature weights) based on the implementation of the
-        computequadpoints and computequadweights methods."""
+        computequadpoints and computequadweights methods.
+        There can be exactly one keyword given, either order=something
+        or nq=something.
+        If nq is specified, we choose the order according to
+        getcorrespondingorder.
+        """
+        if not len(kwargs) == 1:
+            raise ValueError("Exactly one keyword has to be given.")
+
+        order = None
+        if "order" in kwargs:
+            order = kwargs["order"]
+        elif "nq" in kwargs:
+            nq = kwargs["nq"]
+            order = self.getcorrespondingorder(nq)
+        else:
+            raise ValueError("Keyword has to be order or nq.")
+
+        if order < 0:
+            raise ValueError("Order can not be negative")
+
         self.xyz = self.computequadpoints(order)
         self.weights = self.computequadweights(order)
 

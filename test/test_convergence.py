@@ -1,27 +1,30 @@
-from numpy import zeros, savetxt, stack, ones
+from numpy import zeros, savetxt, reshape, ones, concatenate
 from .functioncollection_cartesian import f1, f2, f3
 from sphericalquadpy.montecarlo.montecarlo import MonteCarlo
 
 
 def test_convergence():
     n = [10 ** k for k in range(6)]
-    errors = zeros(len(n))
+    functions = [f1, f2, f3]
+    errors = zeros((len(n), len(functions)))
 
-    for pos, f in enumerate([f1, f2, f3]):
+    for pos, f in enumerate(functions):
 
         def func(x, y, z):
             return f(x, y, z)[0]
 
         truevalue = f(ones(3), zeros(3), zeros(3))[1]
-        for i, order in enumerate(n):
-            Q = MonteCarlo(order)
+        for i, nq in enumerate(n):
+            Q = MonteCarlo(nq=nq)
             computedvalue = Q.integrate([func])
             error = abs(truevalue - computedvalue)
             print(error)
-            errors[i] = error
+            errors[i, pos] = error
         relerrors = errors / truevalue
-        savetxt("errors.txt", stack([n, errors], axis=1))
-        savetxt("relerrors.txt", stack([n, relerrors], axis=1))
+        savetxt("errors.txt", concatenate((reshape(n, (len(n), 1)), errors), axis=1))
+        savetxt(
+            "relerrors.txt", concatenate((reshape(n, (len(n), 1)), relerrors), axis=1)
+        )
 
     # TODO: create plots
 
