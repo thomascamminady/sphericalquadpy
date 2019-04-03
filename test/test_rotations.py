@@ -37,6 +37,42 @@ def test_rotatedpointisonsphere():
     assert norm(1.0 - norm(rotatedpoint)) < 1e-12
 
 
+def test_invalidpointgiveserror1():
+    """Error if not a 3d point"""
+    point = randn(10, 4)
+    axis = randn(3)
+    axis = axis / norm(axis)
+
+    angle = 2 * pi * rand()
+
+    with pytest.raises(Exception):
+        _ = rotate(axis, angle, point)
+
+
+def test_invalidpointgiveserror2():
+    """Error if not a 3d point"""
+    point = randn(4)
+    axis = randn(3)
+    axis = axis / norm(axis)
+
+    angle = 2 * pi * rand()
+
+    with pytest.raises(Exception):
+        _ = rotate(axis, angle, point)
+
+
+def test_invalidpointgiveserror3():
+    """Error if not a 3d point"""
+    point = randn(4, 3, 2)
+    axis = randn(3)
+    axis = axis / norm(axis)
+
+    angle = 2 * pi * rand()
+
+    with pytest.raises(Exception):
+        _ = rotate(axis, angle, point)
+
+
 def test_rotatedpointsareonsphere_manyrotations():
     """Test whether points that were on the sphere remain on the sphere,
     even after performing many rotations"""
