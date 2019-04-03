@@ -1,7 +1,3 @@
-import pytest
-
-
-@pytest.mark.skip(reason="Ignore __about__")
 # pylint: disable=C0111
 
 

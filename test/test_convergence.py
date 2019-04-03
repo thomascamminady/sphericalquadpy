@@ -18,8 +18,8 @@ def test_convergence():
         print(error)
         errors[i] = error
     relerrors = errors / truevalue
-    savetxt("output/errors.txt", stack([n, errors], axis=1))
-    savetxt("output/relerrors.txt", stack([n, relerrors], axis=1))
+    savetxt("errors.txt", stack([n, errors], axis=1))
+    savetxt("relerrors.txt", stack([n, relerrors], axis=1))
 
     # TODO: create plots
 
