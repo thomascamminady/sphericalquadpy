@@ -1,9 +1,9 @@
 """Monte Carlo Quadrature uses random quadrature points and equal
 weights to integrate a function."""
-from numpy import pi, loadtxt
+from numpy import pi
 from sphericalquadpy.quadrature.quadrature import Quadrature
 from sphericalquadpy.tools.findnearest import find_nearest
-from sphericalquadpy.lebedevdicitionary import lebedevdictionary
+from sphericalquadpy.lebedev.writtendict import lebedevdictionary
 
 AVAILABLEORDERS = [
     3,

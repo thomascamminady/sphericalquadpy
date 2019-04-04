@@ -7,8 +7,35 @@ http://mathworld.wolfram.com/SphericalCoordinates.html
 """
 # pylint: disable=C0103
 # pylint: disable=E1111
-from numpy import arctan2, arccos, cos, sin, zeros
+import numpy
+from numpy import arctan2, arccos, cos, sin, zeros, reshape
 from numpy.linalg import norm
+
+
+def cast2matrix(x, dim):
+    """Handles different cases of the input x that might happen to
+    be given when xyz2thetaphi or thetaphi2xyz is called.
+    These functions require the input to be an (n,dim) matrix (with dim=2 or 3
+    depending on which direction).
+    Sometimes the user calls it with a vector of (dim,) which will fail.
+    Some other weird formats have occured before and we will handle them
+    and convert everything (when possible) into a (n,dim) matrix.
+    """
+    if type(x) == list:  # cast list to numpy array and then call cas2matrix
+        return cast2matrix(numpy.array(x), dim)
+
+    if type(x) == numpy.ndarray:
+        if len(x.shape) == 1:  # vector to 1x3 matrix
+            return reshape(x, (1, dim))
+        if len(x.shape) == 2:
+            if x.shape[1] == dim:  # is n x 3
+                return x
+            if x.shape[0] == dim:  # has to be transposed since it is 3 x n
+                return x.T
+        if len(x.shape) > 2:
+            raise ValueError(
+                "Numpy ndarrays as input have to be vectors or matrices."
+            )
 
 
 def xyz2thetaphi(xyz):
@@ -28,10 +55,10 @@ def xyz2thetaphi(xyz):
         thetaphi: An (n,2) numpy.ndarray of spherical points living on the unit
         sphere.
     """
+    xyz = cast2matrix(xyz, 3)
 
     n, dim = xyz.shape
-    if not dim == 3:
-        raise ValueError("We require points in 3D, not %dD." % (dim,))
+
     thetaphi = zeros((n, 2))
     for i in range(n):
         x, y, z = xyz[i, :]
@@ -62,10 +89,9 @@ def thetaphi2xyz(thetaphi):
         xyz: An (n,3) numpy.ndarray of cartesian points living on the unit
         sphere.
     """
-
+    thetaphi = cast2matrix(thetaphi, 2)
     n, dim = thetaphi.shape
-    if not dim == 2:
-        raise ValueError("We require points in 2D, not %dD." % (dim,))
+    
     xyz = zeros((n, 3))
     for i in range(n):
         theta, phi = thetaphi[i, :]

@@ -4,9 +4,40 @@ consecutively we end up at the same points.
 """
 
 import pytest
-from numpy import array, pi
+from numpy import array, pi, ones
 from numpy.linalg import norm
-from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz
+from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz, \
+    cast2matrix
+
+
+def test_cast2matrix_correctcall():
+    a = ones((10, 3))  # matrix should be transpoed
+    b = cast2matrix(a, 3)
+    assert b.shape == (10, 3)
+
+
+def test_cast2matrix_list():
+    a = [1, 2, 3]  # list should be cast to matrix
+    b = cast2matrix(a, 3)
+    assert b.shape == (1, 3)
+
+
+def test_cast2matrix_vector():
+    a = ones(2)  # vector should be cast to matrix
+    b = cast2matrix(a, 2)
+    assert b.shape == (1, 2)
+
+
+def test_cast2matrix_matrixtranspose():
+    a = ones((3, 10))  # matrix should be transpoed
+    b = cast2matrix(a, 3)
+    assert b.shape == (10, 3)
+
+
+def test_cast2matrix_tensorexception():
+    a = ones((3, 10, 5))  # 3 tensor should cause exception
+    with pytest.raises(Exception):
+        _ = cast2matrix(a, 3)
 
 
 def test_xyz2thetaphi_then_thetaphi2xyz():
@@ -15,7 +46,8 @@ def test_xyz2thetaphi_then_thetaphi2xyz():
     transformation back to (x,y,z)."""
 
     poles = array(
-        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0], [0, 0, -1]]
+        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0],
+         [0, 0, -1]]
     )
     thetaphi = xyz2thetaphi(poles)
     newpoles = thetaphi2xyz(thetaphi)

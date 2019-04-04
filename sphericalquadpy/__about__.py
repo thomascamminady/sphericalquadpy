@@ -1,5 +1,5 @@
-# pylint: disable=C0111
-
+# -*- coding: utf-8 -*-
+#
 
 __author__ = u"Thomas Camminady"
 __email__ = "thomas.camminady@kit.edu"

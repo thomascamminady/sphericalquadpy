@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 # https://packaging.python.org/single_source_version/
 base_dir = os.path.abspath(os.path.dirname(__file__))
 about = {}
-with open(os.path.join(base_dir, "quadpy", "__about__.py"), "rb") as f:
+with open(os.path.join(base_dir, "sphericalquadpy", "__about__.py"), "rb") as f:
     exec(f.read(), about)
 
 
