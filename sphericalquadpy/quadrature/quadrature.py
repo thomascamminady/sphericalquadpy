@@ -84,16 +84,14 @@ class Quadrature(metaclass=ABCMeta):
         """
         if isinstance(functions, types.FunctionType):  # no array of functions
             return dot(
-                self.weights,
-                functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+                self.weights, functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
             )
 
         # if we have an array of functions proceed here:
         results = zeros(len(functions))
         for i, func in enumerate(functions):
             results[i] = dot(
-                self.weights,
-                func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+                self.weights, func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
             )
         return results
 
