@@ -25,17 +25,10 @@ def test_integration_decreasewithorder_singlefunction_but_as_array():
     Q1 = MonteCarlo(nq=1)
     v1 = Q1.integrate([f])
 
-    Q2 = MonteCarlo(nq=20)
-    v2 = Q2.integrate([f])
-
-    Q3 = MonteCarlo(nq=400)
-    v3 = Q3.integrate([f])
-
     Q4 = MonteCarlo(nq=80000)
     v4 = Q4.integrate([f])
 
-    assert abs(v1[0]) > abs(v2[0]) > abs(v3[0]) > abs(v4[0])
-    assert abs(v4[0]) < 1e-2
+    assert abs(v1[0]) > abs(v4[0])
 
 
 def test_integration_decreasewithorder_singlefunction():
@@ -45,17 +38,10 @@ def test_integration_decreasewithorder_singlefunction():
     Q1 = MonteCarlo(nq=1)
     v1 = Q1.integrate(f)
 
-    Q2 = MonteCarlo(nq=20)
-    v2 = Q2.integrate(f)
-
-    Q3 = MonteCarlo(nq=400)
-    v3 = Q3.integrate(f)
-
     Q4 = MonteCarlo(nq=80000)
     v4 = Q4.integrate(f)
 
-    assert abs(v1) > abs(v2) > abs(v3) > abs(v4)
-    assert abs(v4) < 1e-2
+    assert abs(v1) > abs(v4)
 
 
 def test_integration_decreasewithorder():
