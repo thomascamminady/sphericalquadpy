@@ -113,3 +113,6 @@ errors.txt
 relerrors.txt
 
 *.ipynb
+
+sphericalquadpy/lebedev/data/*
+sphericalquadpy/levelsymmetric/data/*
