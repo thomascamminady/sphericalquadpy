@@ -1,6 +1,6 @@
 """Monte Carlo Quadrature uses random quadrature points and equal
 weights to integrate a function."""
-from numpy import pi, ones
+from numpy import pi, ones, inf
 from numpy.random import randn
 from numpy.linalg import norm
 from sphericalquadpy.quadrature.quadrature import Quadrature
@@ -8,6 +8,16 @@ from sphericalquadpy.quadrature.quadrature import Quadrature
 
 class MonteCarlo(Quadrature):
     """Monte Carlo Quadrature"""
+
+    def name(self):
+        return "MonteCarlo Quadrature"
+
+    def getmaximalorder(self):
+        return inf
+
+    def nqbyorder(self, order):
+        """For MonteCarlo, order = nq"""
+        return order, order
 
     def computequadpoints(self, order):
         """Random points on the sphere can be generated
@@ -20,7 +30,3 @@ class MonteCarlo(Quadrature):
         """Equal weights"""
         weights = 4 * pi / order * ones(order)
         return weights
-
-    def nqbyorder(self, order):
-        """For MonteCarlo, order = nq"""
-        return order
