@@ -3,7 +3,7 @@ from numpy import pi
 from sphericalquadpy.quadrature.quadrature import Quadrature
 from sphericalquadpy.tools.findnearest import find_nearest
 from sphericalquadpy.levelsymmetric.writtendict import levelsymmetricdictionary
-
+from sphericalquadpy.levelsymmetric.wbinventor_levelsymmetric import *
 
 AVAILABLEORDERS = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 NUMBERQUADPOINTS = [8, 24, 48, 80, 120, 168, 224, 288, 360, 432]
@@ -18,6 +18,13 @@ NUMBERQUADPOINTS = [8, 24, 48, 80, 120, 168, 224, 288, 360, 432]
 class Levelsymmetric(Quadrature):
     """Levelsymmetric Quadrature"""
 
+    def name(self):
+        return "Levelsymmetric Quadrature"
+
+
+    def getmaximalorder(self):
+        return 20
+
     def computequadpoints(self, order):
         """Quadrature points for Levelsymmetric quadrature. Read from file."""
         if order not in AVAILABLEORDERS:
@@ -27,9 +34,13 @@ class Levelsymmetric(Quadrature):
                 AVAILABLEORDERS[neighbor],
             )
 
-        d = levelsymmetricdictionary()
-        xyzw = d[order]
-        return xyzw[:, 0:2]
+        # d = levelsymmetricdictionary()
+        # xyzw = d[order]
+        # return xyzw[:, 0:3]
+        LS = LevelSymmetricQuadrature()
+        q = LS.getQuadratureSet(order)
+        xyz, _ = LS.getQuadratureSetAll8octants(q)
+        return xyz
 
     def computequadweights(self, order):
         """Quadrature weights for Levelsymmetric quadrature. Read from file."""
@@ -40,9 +51,12 @@ class Levelsymmetric(Quadrature):
                 AVAILABLEORDERS[neighbor],
             )
 
-        d = levelsymmetricdictionary()
-        xyzw = d[order]
-        w = xyzw[:, 3]
+        # d = levelsymmetricdictionary()
+        # xyzw = d[order]
+        # w = xyzw[:, 3]
+        LS = LevelSymmetricQuadrature()
+        q = LS.getQuadratureSet(order)
+        _, w = LS.getQuadratureSetAll8octants(q)
         w /= sum(w)
         w *= 4 * pi
         return w
@@ -50,4 +64,4 @@ class Levelsymmetric(Quadrature):
     def nqbyorder(self, order):
         """Scaling was derived from files in data/"""
         idx = find_nearest(AVAILABLEORDERS, order)
-        return NUMBERQUADPOINTS[idx]
+        return AVAILABLEORDERS[idx], NUMBERQUADPOINTS[idx]
