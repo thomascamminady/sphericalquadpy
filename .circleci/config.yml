@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install -y git python3-pip 
-      - run: pip3 install -U pytest pytest-cov numpy scipy numba
+      - run: pip3 install -U pytest pytest-cov numpy scipy numba matplotlib
       - checkout
       # The tests
       - run: cd test/ && pytest --cov sphericalquadpy

@@ -11,7 +11,7 @@ addons:
       - python3-pip
 
 before_install:
-  - pip3 install -U pytest pytest-cov pylint numpy scipy numba
+  - pip3 install -U pytest pytest-cov pylint numpy scipy numba matplotlib
 
 script:
   - cd test/ &&  pytest --cov sphericalquadpy
