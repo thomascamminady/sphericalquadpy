@@ -13,6 +13,12 @@ class Quadrature(metaclass=ABCMeta):
         """Has to return a string with the name of the quadrature."""
 
     @abstractmethod
+    def getmaximalorder(self):
+        """Returns the maximal order for which the quadrature is available.
+        This can be inf for quadratures which we generate or some bounded value
+        if the quadrature exists only as a lookup table"""
+
+    @abstractmethod
     def computequadpoints(self, order):
         """
         Computes the quadrature points based on a given order.
@@ -47,11 +53,53 @@ class Quadrature(metaclass=ABCMeta):
             the specified order.
         """
 
-    @abstractmethod
-    def getmaximalorder(self):
-        """Returns the maximal order for which the quadrature is available.
-        This can be inf for quadratures which we generate or some bounded value
-        if the quadrature exists only as a lookup table"""
+    def getcorrespondingorder(self, nquadpoints_desired):
+        """If the user specifies the number of quadrature points,
+        then we compute the order, such that it is the highest order
+        that yields a number of quadrature points which is smaller or equal
+        than the demanded number of quadrature points."""
+        n = 0
+        order, nq = self.nqbyorder(n)
+        if nq > nquadpoints_desired:
+            return order
+        maximalorder = self.getmaximalorder()
+        while True:
+            nextorder, nextnq = self.nqbyorder(n + 1)
+            if nextnq > nquadpoints_desired:
+                return order
+
+            if nextorder == maximalorder:
+                return maximalorder
+
+            order = nextorder
+            n += 1
+
+    def integrate(self, functions):
+        """Integrate an array of functions with the given quadrature.
+        It is assumed that every function has the signature f(x,y,z), i.e.
+        takes three inputs and returns one scalar output.
+        Args:
+            functions: An array of functions or a single function
+        Returns:
+            integral: An array (if an array of functions is given as input)
+            that contains the approximation of the integral
+            of the respective function via the specified quadrature.
+
+        """
+        if isinstance(functions, types.FunctionType):  # no array of functions
+            return dot(
+                self.weights,
+                functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+            )
+
+        # if we have an array of functions proceed here:
+        results = zeros(len(functions))
+        for i, func in enumerate(functions):
+            results[i] = dot(
+                self.weights,
+                func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
+            )
+        return results
 
     def __init__(self, **kwargs):
         """The init method sets xyz (the quadrature points) and weights
@@ -79,49 +127,3 @@ class Quadrature(metaclass=ABCMeta):
 
         self.xyz = self.computequadpoints(order)
         self.weights = self.computequadweights(order)
-
-    def integrate(self, functions):
-        """Integrate an array of functions with the given quadrature.
-        It is assumed that every function has the signature f(x,y,z), i.e.
-        takes three inputs and returns one scalar output.
-        Args:
-            functions: An array of functions or a single function
-        Returns:
-            integral: An array (if an array of functions is given as input)
-            that contains the approximation of the integral
-            of the respective function via the specified quadrature.
-
-        """
-        if isinstance(functions, types.FunctionType):  # no array of functions
-            return dot(
-                self.weights, functions(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
-            )
-
-        # if we have an array of functions proceed here:
-        results = zeros(len(functions))
-        for i, func in enumerate(functions):
-            results[i] = dot(
-                self.weights, func(self.xyz[:, 0], self.xyz[:, 1], self.xyz[:, 2])
-            )
-        return results
-
-    def getcorrespondingorder(self, nquadpoints_desired):
-        """If the user specifies the number of quadrature points,
-        then we compute the order, such that it is the highest order
-        that yields a number of quadrature points which is smaller or equal
-        than the demanded number of quadrature points."""
-        n = 0
-        order, nq = self.nqbyorder(n)
-        if nq > nquadpoints_desired:
-            return order
-        maximalorder = self.getmaximalorder()
-        while True:
-            nextorder, nextnq = self.nqbyorder(n + 1)
-            if nextnq > nquadpoints_desired:
-                return order
-
-            if nextorder == maximalorder:
-                return maximalorder
-
-            order = nextorder
-            n += 1
