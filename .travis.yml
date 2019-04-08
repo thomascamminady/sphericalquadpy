@@ -14,7 +14,6 @@ before_install:
   - pip3 install -U pytest pytest-cov pylint numpy scipy 
 
 script:
-  - pylint sphericalquadpy/
   - cd test/ &&  pytest --cov sphericalquadpy
 
 after_success:

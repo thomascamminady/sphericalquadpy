@@ -116,3 +116,4 @@ relerrors.txt
 
 sphericalquadpy/lebedev/data/*
 sphericalquadpy/levelsymmetric/data/*
+test/coverage/*
