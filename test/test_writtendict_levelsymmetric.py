@@ -15,7 +15,7 @@ def test_dictionary_correct():
 
 
 def test_writedictionaryworks():
-    os.chdir("sphericalquadpy/levelsymmetric/")
+    os.chdir("../sphericalquadpy/levelsymmetric/")
     writedict()
     d1 = createdict()
     d2 = levelsymmetricdictionary()
@@ -25,4 +25,4 @@ def test_writedictionaryworks():
         a = norm(d1[order])
         b = norm(d2[order])
         assert abs(a - b) < 1e-12
-    os.chdir("../../")
+    os.chdir("../../test")

@@ -6,7 +6,7 @@ from numpy.linalg import norm
 
 
 def test_writedictionaryworks():
-    os.chdir("sphericalquadpy/lebedev/")
+    os.chdir("../sphericalquadpy/lebedev/")
     writedict()
     d1 = createdict()
     d2 = lebedevdictionary()
@@ -49,7 +49,7 @@ def test_writedictionaryworks():
         a = norm(d1[order])
         b = norm(d2[order])
         assert abs(a - b) < 1e-12
-    os.chdir("../..")
+    os.chdir("../../test")
 
 
 def test_dictionary_correct():
