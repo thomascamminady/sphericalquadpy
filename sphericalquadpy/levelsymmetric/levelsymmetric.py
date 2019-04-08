@@ -34,13 +34,13 @@ class Levelsymmetric(Quadrature):
                 AVAILABLEORDERS[neighbor],
             )
 
-        # d = levelsymmetricdictionary()
-        # xyzw = d[order]
-        # return xyzw[:, 0:3]
-        LS = LevelSymmetricQuadrature()
-        q = LS.getQuadratureSet(order)
-        xyz, _ = LS.getQuadratureSetAll8octants(q)
-        return xyz
+        d = levelsymmetricdictionary()
+        xyzw = d[order]
+        return xyzw[:, 0:3]
+        #LS = LevelSymmetricQuadrature()
+        #q = LS.getQuadratureSet(order)
+        #xyz, _ = LS.getQuadratureSetAll8octants(q)
+        #return xyz
 
     def computequadweights(self, order):
         """Quadrature weights for Levelsymmetric quadrature. Read from file."""
@@ -51,12 +51,12 @@ class Levelsymmetric(Quadrature):
                 AVAILABLEORDERS[neighbor],
             )
 
-        # d = levelsymmetricdictionary()
-        # xyzw = d[order]
-        # w = xyzw[:, 3]
-        LS = LevelSymmetricQuadrature()
-        q = LS.getQuadratureSet(order)
-        _, w = LS.getQuadratureSetAll8octants(q)
+        d = levelsymmetricdictionary()
+        xyzw = d[order]
+        w = xyzw[:, 3]
+        #LS = LevelSymmetricQuadrature()
+        #q = LS.getQuadratureSet(order)
+        #_, w = LS.getQuadratureSetAll8octants(q)
         w /= sum(w)
         w *= 4 * pi
         return w
