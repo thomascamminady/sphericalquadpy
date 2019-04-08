@@ -92,16 +92,16 @@ the quadrature set on the sphere should have little influence on the computation
 of the integral. Thus, every integral was computed a hundred times with different
 random rotations of the same original quadrature set. The mean and variance of the resulting
 errors are showin in the figures below, together with the different functions.
- 
- ##### 1) f(x,y,z) = exp(-10z^2)
-![Fig.1](test/function1.png) 
-![Fig.1](test/convergence1.png)
 
 
- ##### 2) f(x,y,z) = exp(10z)
-![Fig.1](test/function0.png) 
-![Fig.1](test/convergence0.png)
 
+Function f(x,y,z) = exp(-10z^2)|  Convergence
+:-------------------------:|:-------------------------:
+![](test/function1.png)  |  ![](test/convergence1.png)
+
+Function f(x,y,z) = exp(10z)|  Convergence
+:-------------------------:|:-------------------------:
+![](test/function0.png)  |  ![](test/convergence0.png)
 
 ## Implementation details
 All implemented quadratures inherit from the abstract metaclass `Quadrature`. 
