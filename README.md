@@ -3,7 +3,10 @@ Quadrature sets for spherical integration on the unit sphere in three dimensions
 
 A spherical quadrature is used to approximate the integral of a function 
 
-<img src="http://www.sciweavers.org/tex2img.php?eq=%5Cint_%7B%5Cmathbb%7BS%7D%5E2%7D%20f%28x%2Cy%2Cz%29%20%5C%2C%20d%5COmega%20%5Capprox%20%5Csum_%7Bq%3D1%7D%5E%7BNq%7D%20f%28x_q%2Cy_q%2Cz_q%29%20%5Ccdot%20w_q&bc=White&fc=Black&im=png&fs=24&ff=modern&edit=0" align="center" border="0" alt="\int_{\mathbb{S}^2} f(x,y,z) \, d\Omega \approx \sum_{q=1}^{Nq} f(x_q,y_q,z_q) \cdot w_q" width="547" height="106" />
+
+```text
+∫ f(x,y,z) dΩ  ≈ ∑ f(xₖ, yₖ, zₖ) wₖ
+```
 
 Where the function lives on the unit sphere and maps to the real numbers.
 
