@@ -11,7 +11,9 @@ def createdict():
     D = dict()
     for order in orders:
         xyzw = np.loadtxt("data/" + str(order) + "_levelsym.txt", delimiter=",")
+        xyzw[:, 3] = xyzw[:, 3] / sum(xyzw[:, 3]) * 4 * np.pi
         D[order] = xyzw
+
     return D
 
 

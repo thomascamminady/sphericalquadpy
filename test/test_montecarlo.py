@@ -1,10 +1,20 @@
 import pytest
-from numpy import pi
+from numpy import pi, inf
 from numpy.random import seed
 from sphericalquadpy.montecarlo.montecarlo import MonteCarlo
 
 # remove randomness for different test runs
 seed(12345)
+
+
+def test_maxorder():
+    Q = MonteCarlo(nq=10)
+    assert Q.getmaximalorder() == inf
+
+
+def test_name():
+    Q = MonteCarlo(nq=10)
+    assert Q.name() == "MonteCarlo Quadrature"
 
 
 def test_quadratureweights_sum_to_4pi():

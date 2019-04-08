@@ -4,7 +4,7 @@ from sphericalquadpy.levelsymmetric.levelsymmetric import Levelsymmetric
 from numpy import pi
 import pytest
 
-
+"""
 def test_createallquadratures():
     Qs = [MonteCarlo, Lebedev, Levelsymmetric]
 
@@ -44,3 +44,4 @@ def test_levelsymexception():
 
     with pytest.raises(Exception):
         _ = q.computequadweights(order=-10)
+"""
