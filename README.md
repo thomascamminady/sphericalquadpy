@@ -39,7 +39,6 @@ functions.
     - uses random points on the unit sphere with equal weights
     - implemented in `sphericalquadpy.montecarlo.MonteCarlo`      
 
-
 ## How to use
 We start by cloning the repository and changing into the directory
     
@@ -84,6 +83,18 @@ than before
 
     >>> print(Qfine.integrate(f) - 9.38486877222642)
     6.444195754795601e-08
+
+
+## Results
+The figure below shows the convergence rate for different functions and the different
+quadratures. One goal of spherical quadratures is for them to be isotropic. That is, randomly rotating
+the quadrature set on the sphere should have little influence on the computation
+of the integral. Thus, every integral was computed a hundred times with different
+random rotations of the same original quadrature set. The mean and variance of the resulting
+errors are showin in the figures below, together with the different functions.
+ 
+
+![Fig.1](test/convergence1.png)
 
 
 
