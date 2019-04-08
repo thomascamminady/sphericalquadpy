@@ -10,8 +10,7 @@ def createdict():
 
     D = dict()
     for order in orders:
-        xyzw = np.loadtxt("data/" + str(order) + "_levelsym.txt",
-                          delimiter=",")
+        xyzw = np.loadtxt("data/" + str(order) + "_levelsym.txt", delimiter=",")
         D[order] = xyzw
     return D
 
@@ -25,9 +24,9 @@ def writedict():
     np.set_printoptions(precision=15)
     with open("writtendict.py", "w") as f:
         mystring = (
-                "from numpy import array\n"
-                "def levelsymmetricdictionary():\n"
-                "\treturn (" + str(d) + ")"
+            "from numpy import array\n"
+            "def levelsymmetricdictionary():\n"
+            "\treturn (" + str(d) + ")"
         )
 
         print(mystring, file=f)

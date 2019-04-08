@@ -6,8 +6,11 @@ consecutively we end up at the same points.
 import pytest
 from numpy import array, pi, ones
 from numpy.linalg import norm
-from sphericalquadpy.tools.transformations import xyz2thetaphi, thetaphi2xyz, \
-    cast2matrix
+from sphericalquadpy.tools.transformations import (
+    xyz2thetaphi,
+    thetaphi2xyz,
+    cast2matrix,
+)
 
 
 def test_cast2matrix_correctcall():
@@ -46,8 +49,7 @@ def test_xyz2thetaphi_then_thetaphi2xyz():
     transformation back to (x,y,z)."""
 
     poles = array(
-        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0],
-         [0, 0, -1]]
+        [[+1, 0, 0], [0, +1, 0], [0, 0, +1], [-1, 0, 0], [0, -1, 0], [0, 0, -1]]
     )
     thetaphi = xyz2thetaphi(poles)
     newpoles = thetaphi2xyz(thetaphi)

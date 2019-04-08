@@ -21,7 +21,6 @@ class Levelsymmetric(Quadrature):
     def name(self):
         return "Levelsymmetric Quadrature"
 
-
     def getmaximalorder(self):
         return 20
 
@@ -37,10 +36,10 @@ class Levelsymmetric(Quadrature):
         d = levelsymmetricdictionary()
         xyzw = d[order]
         return xyzw[:, 0:3]
-        #LS = LevelSymmetricQuadrature()
-        #q = LS.getQuadratureSet(order)
-        #xyz, _ = LS.getQuadratureSetAll8octants(q)
-        #return xyz
+        # LS = LevelSymmetricQuadrature()
+        # q = LS.getQuadratureSet(order)
+        # xyz, _ = LS.getQuadratureSetAll8octants(q)
+        # return xyz
 
     def computequadweights(self, order):
         """Quadrature weights for Levelsymmetric quadrature. Read from file."""
@@ -54,9 +53,9 @@ class Levelsymmetric(Quadrature):
         d = levelsymmetricdictionary()
         xyzw = d[order]
         w = xyzw[:, 3]
-        #LS = LevelSymmetricQuadrature()
-        #q = LS.getQuadratureSet(order)
-        #_, w = LS.getQuadratureSetAll8octants(q)
+        # LS = LevelSymmetricQuadrature()
+        # q = LS.getQuadratureSet(order)
+        # _, w = LS.getQuadratureSetAll8octants(q)
         w /= sum(w)
         w *= 4 * pi
         return w

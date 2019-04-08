@@ -33,9 +33,7 @@ def cast2matrix(x, dim):
             if x.shape[0] == dim:  # has to be transposed since it is 3 x n
                 return x.T
         if len(x.shape) > 2:
-            raise ValueError(
-                "Numpy ndarrays as input have to be vectors or matrices."
-            )
+            raise ValueError("Numpy ndarrays as input have to be vectors or matrices.")
 
 
 def xyz2thetaphi(xyz):
@@ -91,7 +89,7 @@ def thetaphi2xyz(thetaphi):
     """
     thetaphi = cast2matrix(thetaphi, 2)
     n, dim = thetaphi.shape
-    
+
     xyz = zeros((n, 3))
     for i in range(n):
         theta, phi = thetaphi[i, :]

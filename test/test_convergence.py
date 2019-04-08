@@ -19,10 +19,10 @@ def test_convergence():
             print(error)
             errors[i, pos] = error
         relerrors = errors / truevalue
-        #savetxt("errors.txt", concatenate((reshape(n, (len(n), 1)), errors), axis=1))
-        #savetxt(
+        # savetxt("errors.txt", concatenate((reshape(n, (len(n), 1)), errors), axis=1))
+        # savetxt(
         #    "relerrors.txt", concatenate((reshape(n, (len(n), 1)), relerrors), axis=1)
-        #)
+        # )
 
 
 def test_convergence_under_random_rotations():

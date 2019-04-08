@@ -45,6 +45,7 @@ def test_dictionary_correct():
         q = d[order]
         assert abs(sum(q[:, 3]) - 1) < 1e-12
 
+
 """
 def test_writedictionaryworks():
     os.chdir("sphericalquadpy/lebedev/")

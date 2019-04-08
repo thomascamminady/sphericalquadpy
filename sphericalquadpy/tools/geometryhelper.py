@@ -44,12 +44,12 @@ def slerp(pointa, pointb, n):
     """ Spherical linear interpolation between
     two points. """
 
-    omega = arctan(norm(cross(pointa, pointb))
-                   / dot(pointa, pointb))
+    omega = arctan(norm(cross(pointa, pointb)) / dot(pointa, pointb))
     t = linspace(0, 1, n)
 
-    return (outer(pointa, sin(1 - t) * omega / sin(omega))
-            + outer(pointb, sin(t) * omega / sin(omega)))
+    return outer(pointa, sin(1 - t) * omega / sin(omega)) + outer(
+        pointb, sin(t) * omega / sin(omega)
+    )
 
 
 @jit(nopython=True)
