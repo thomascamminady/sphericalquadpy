@@ -6,7 +6,7 @@ from numpy.linalg import norm
 EPSILON = 1e-12
 
 
-@jit
+#@jit
 def cross(vec1, vec2):
     """ Calculate the cross product of two 3d vectors. """
     # taken from https://gist.github.com/ufechner7/98bcd6d9915ff4660a10
@@ -14,7 +14,7 @@ def cross(vec1, vec2):
     return cross_(vec1, vec2, result)
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def cross_(vec1, vec2, result):
     """ Calculate the cross product of two 3d vectors. """
     # taken from https://gist.github.com/ufechner7/98bcd6d9915ff4660a10
@@ -26,20 +26,20 @@ def cross_(vec1, vec2, result):
     return result
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def project(x):
     """Projects the point x onto the unit sphere. """
     return x / norm(x)
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def lerp(pointa, pointb, n):
     """ Linear interpolation between two points. """
     t = linspace(0, 1, n)
     return outer(pointa, t) + outer(pointb, 1 - t)
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def slerp(pointa, pointb, n):
     """ Spherical linear interpolation between
     two points. """
@@ -47,12 +47,12 @@ def slerp(pointa, pointb, n):
     omega = arctan(norm(cross(pointa, pointb)) / dot(pointa, pointb))
     t = linspace(0, 1, n)
 
-    return outer(pointa, sin(1 - t) * omega / sin(omega)) + outer(
-        pointb, sin(t) * omega / sin(omega)
+    return outer(pointa, sin((1 - t) * omega) / sin(omega)) + outer(
+        pointb, sin((t) * omega) / sin(omega)
     )
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def distance(pointa, pointb):
     """ Returns the spherical distance between
     two points. """
@@ -61,7 +61,7 @@ def distance(pointa, pointb):
     return ra * arccos(dot(pointa, pointb) / ra ** 2)
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def angle(pointb, pointa, pointc):
     """ Returns the spherical angle between the lines
      pointb<->pointa and pointa<->pointc
@@ -81,7 +81,7 @@ def s2area(pointa, pointb, pointc):
     return area(pointa / ra, pointb / rb, pointc / rc)
 
 
-@jit(nopython=True)
+#@jit(nopython=True)
 def area(pointa, pointb, pointc):
     """" Returns the spherical area of the triangle
     spanned by the three points, see:
@@ -89,6 +89,9 @@ def area(pointa, pointb, pointc):
 
     ra, rb, rc = norm(pointa), norm(pointb), norm(pointc)
 
+    pointa /= ra
+    pointb /= rb
+    pointc /= rc
     # project onto unit sphere
 
     alpha = angle(pointb, pointa, pointc)
