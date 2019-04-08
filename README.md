@@ -1,4 +1,7 @@
-# sphericalquadpy
+# sphericalquadpy 
+**This package is still in a very early development stage!**
+
+
 Quadrature sets for spherical integration on the unit sphere in three dimensions.
 
 A spherical quadrature is used to approximate the integral of a function 
