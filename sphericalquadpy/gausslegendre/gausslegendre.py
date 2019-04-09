@@ -1,60 +1,49 @@
-"""LDFESA quadrature."""
-from numpy import pi
+"""GaussLegendre quadrature."""
+from numpy import pi, inf, zeros, sqrt, cos, sin
+from numpy.polynomial.legendre import leggauss
 from sphericalquadpy.quadrature.quadrature import Quadrature
-from sphericalquadpy.tools.findnearest import find_nearest
-from sphericalquadpy.ldfesa.writtendict import ldfesadictionary
-
-AVAILABLEORDERS = [1, 2, 3]
-
-NUMBERQUADPOINTS = [32, 128, 512]
 
 
-# NUMBERQUADPOINTS = zeros(len(AVAILABLEORDERS), dtype=int)
-# for i, order in enumerate(AVAILABLEORDERS):
-#    tmp = loadtxt("data/"+str(order) + "_ldfesa.txt", delimiter=",")
-#    NUMBERQUADPOINTS[i] = tmp.shape[0]
-
-
-class LDFESA(Quadrature):
-    """LDFESA Quadrature"""
+class GaussLegendre(Quadrature):
+    """GaussLegendre Quadrature"""
 
     def name(self):
-        return "LDFESA Quadrature"
+        return "GaussLegendre Quadrature"
 
     def getmaximalorder(self):
-        return 3
+        return inf
 
     def computequadpoints(self, order):
-        """Quadrature points for LDFESA quadrature. Read from file."""
-        if order not in AVAILABLEORDERS:
-            neighbor = find_nearest(AVAILABLEORDERS, order)
-            raise ValueError(
-                "Order not available. Next closest would be" "%i.",
-                AVAILABLEORDERS[neighbor],
-            )
+        """Quadrature points for GaussLegendre quadrature. Read from file."""
+        mu, _ = leggauss(order)
+        phi = [pi * (k + 1 / 2) / order for k in range(2 * order)]
+        xyz = zeros((2 * order * order, 3))
+        count = 0
+        for i in range(order):
+            for j in range(2 * order):
+                mui = mu[i]
+                phij = phi[j]
+                xyz[count, 0] = sqrt(1 - mui ** 2) * cos(phij)
+                xyz[count, 1] = sqrt(1 - mui ** 2) * sin(phij)
+                xyz[count, 2] = mui
+                count += 1
 
-        d = ldfesadictionary()
-        xyzw = d[order]
-        return xyzw[:, 0:3]
+        return xyz
 
     def computequadweights(self, order):
-        """Quadrature weights for LDFESA quadrature. Read from file."""
-        if order not in AVAILABLEORDERS:
-            neighbor = find_nearest(AVAILABLEORDERS, order)
-            raise ValueError(
-                "Order not available. Next closest would be %i. You chose %i",
-                AVAILABLEORDERS[neighbor],
-                order,
-            )
+        """Quadrature weights for GaussLegendre quadrature. Read from file."""
+        _, leggaussweights = leggauss(order)
+        w = zeros(2 * order * order)
+        count = 0
+        for i in range(order):
+            for j in range(2 * order):
+                w[count] = 2 * pi / order * leggaussweights[i]
+                count += 1
 
-        d = ldfesadictionary()
-        xyzw = d[order]
-        w = xyzw[:, 3]
         w /= sum(w)
         w *= 4 * pi
         return w
 
     def nqbyorder(self, order):
-        """Scaling was derived from files in data/"""
-        idx = find_nearest(AVAILABLEORDERS, order)
-        return AVAILABLEORDERS[idx], NUMBERQUADPOINTS[idx]
+        """Scales quadratically"""
+        return order, 2 * order ** 2
