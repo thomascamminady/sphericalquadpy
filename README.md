@@ -55,13 +55,14 @@ Integration of the indicator function with different quadratures. Full portfolio
     - generated from a lookup table and available for order 2 to 20.
     - only single precision
     - implemented in `sphericalquadpy.levelsymmetric.Levelsymmetric`
-    - taken from [this source](http://tflaspoehler.com/ordinates.html)
+    - taken from [this source, by Tim Flaspoehler](http://tflaspoehler.com/ordinates.html)
 
 - Lebedev quadrature **(use with caution, in beta)**
     - generated from a lookup table and available for order 3 to 131.
     - only single precision
     - implemented in `sphericalquadpy.lebedev.Lebedev`
-    - taken from [this source](http://people.sc.fsu.edu/~jburkardt/datasets/sphere_lebedev_rule/sphere_lebedev_rule.html)
+    - taken from [this source, by John Burkardt](http://people.sc.fsu.edu/~jburkardt/datasets/sphere_lebedev_rule/sphere_lebedev_rule.html)
+    under the [GNU LGPL License](http://people.sc.fsu.edu/~jburkardt/txt/gnu_lgpl.txt)
     
 - Random Points
     - uses random points on the unit sphere with equal weights
@@ -180,6 +181,11 @@ quadrature.
 - Write to file routine
 - Portfolio of testcases
 
-## Credit
+## Credit 
 This work was inspired by the great collection of quadrature sets [quadpy](https://github.com/nschloe/quadpy) by [Nico Schlömer](https://github.com/nschloe). 
 It was helpful not only for the quadrature sets themselves, but also for the demonstration of how to create a Python module.
+
+The Lebedev quadrature points are taken [John Burkardt](http://people.sc.fsu.edu/~jburkardt/datasets/sphere_lebedev_rule/sphere_lebedev_rule.html). The corresponding code and 
+data is licensed under the [GNU LGPL License](http://people.sc.fsu.edu/~jburkardt/txt/gnu_lgpl.txt).
+    
+The Level Symmetric quadrature points are taken from [Tim Flaspoehler](http://tflaspoehler.com/ordinates.html).
