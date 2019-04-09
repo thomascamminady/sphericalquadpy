@@ -15,14 +15,29 @@ A spherical quadrature is used to approximate the integral of a function
 ```text
 ∫ f(x,y,z) dΩ  ≈ ∑ f(xₖ, yₖ, zₖ) wₖ
 ```
-
 Where the function lives on the unit sphere and maps to the real numbers.
 
 The aim of this package is to provide different sets of quadrature points and 
 related quadrature weights to evaluate spherical integral for different 
 functions. 
 
-## Available quadratures
+## Summary of quadratures
+Integration of the indicator functin with different quadratures. Full portfolio of test cases further down.
+
+| Function | Convergence |
+| ------------- |:-------------:|
+|![](test/function2.png)|![](test/convergence2.png)|
+
+| Quadrature | Type | Max Order | Max Nq | Random | Symmetry | Nestedness | Precision
+| ------------- | ------------- | ------------- |------------- | ------------- | ------------- | ------------- | ------------- | 
+| `GaussLegendre`| generated | `inf`| `inf` | no | around `z` axis | partially  | `1E-8`
+| `LDFESA`| lookup table | `3`| `512` | no | per octant | partially  | `1E-8`
+| `LevelSymmetric`| lookup table | `20`| `432` | no | per octant | partially  | ?
+| `Lebedev`| lookup table | `131`| `5810` | no | ? | ? | `1E-8`
+| `MonteCarlo`| generated| `inf`| `inf` | yes | no | no | `1E-16`
+ 
+ 
+## Details for quadratures
 
 - Gauss Legendre quadrature 
     - uses `numpy.polynomial.legendre.leggauss` in polar angle, equidistant in 
@@ -51,6 +66,8 @@ functions.
 - Random Points
     - uses random points on the unit sphere with equal weights
     - implemented in `sphericalquadpy.montecarlo.MonteCarlo`      
+
+
 
 ## How to use
 We start by cloning the repository and changing into the directory
