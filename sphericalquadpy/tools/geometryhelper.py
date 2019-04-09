@@ -6,7 +6,7 @@ from numpy.linalg import norm
 EPSILON = 1e-12
 
 
-#@jit
+# @jit
 def cross(vec1, vec2):
     """ Calculate the cross product of two 3d vectors. """
     # taken from https://gist.github.com/ufechner7/98bcd6d9915ff4660a10
@@ -14,7 +14,7 @@ def cross(vec1, vec2):
     return cross_(vec1, vec2, result)
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def cross_(vec1, vec2, result):
     """ Calculate the cross product of two 3d vectors. """
     # taken from https://gist.github.com/ufechner7/98bcd6d9915ff4660a10
@@ -26,20 +26,20 @@ def cross_(vec1, vec2, result):
     return result
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def project(x):
     """Projects the point x onto the unit sphere. """
     return x / norm(x)
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def lerp(pointa, pointb, n):
     """ Linear interpolation between two points. """
     t = linspace(0, 1, n)
     return outer(pointa, t) + outer(pointb, 1 - t)
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def slerp(pointa, pointb, n):
     """ Spherical linear interpolation between
     two points. """
@@ -52,7 +52,7 @@ def slerp(pointa, pointb, n):
     )
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def distance(pointa, pointb):
     """ Returns the spherical distance between
     two points. """
@@ -61,7 +61,7 @@ def distance(pointa, pointb):
     return ra * arccos(dot(pointa, pointb) / ra ** 2)
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def angle(pointb, pointa, pointc):
     """ Returns the spherical angle between the lines
      pointb<->pointa and pointa<->pointc
@@ -81,7 +81,7 @@ def s2area(pointa, pointb, pointc):
     return area(pointa / ra, pointb / rb, pointc / rc)
 
 
-#@jit(nopython=True)
+# @jit(nopython=True)
 def area(pointa, pointb, pointc):
     """" Returns the spherical area of the triangle
     spanned by the three points, see:
@@ -98,3 +98,32 @@ def area(pointa, pointb, pointc):
     beta = angle(pointc, pointb, pointa)
     gamma = angle(pointa, pointc, pointb)
     return (alpha + beta + gamma - pi) * ra ** 2
+
+
+def eightfold(pts):
+    """Takes points that live on one octant and duplicates them"""
+    _, n = pts.shape
+    allpts = zeros((3, 8 * n))
+
+    allpts[0, 0 * n:1 * n] = +pts[0, :]
+    allpts[1, 0 * n:1 * n] = +pts[1, :]
+    allpts[2, 0 * n:1 * n] = +pts[2, :]
+
+    allpts[0, 1 * n:2 * n] = +pts[0, :]
+    allpts[1, 1 * n:2 * n] = -pts[1, :]
+    allpts[2, 1 * n:2 * n] = +pts[2, :]
+
+    allpts[0, 2 * n:3 * n] = +pts[0, :]
+    allpts[1, 2 * n:3 * n] = +pts[1, :]
+    allpts[2, 2 * n:3 * n] = -pts[2, :]
+
+    allpts[0, 3 * n:4 * n] = +pts[0, :]
+    allpts[1, 3 * n:4 * n] = -pts[1, :]
+    allpts[2, 3 * n:4 * n] = -pts[2, :]
+
+    # duplicate upper to lower
+    allpts[0, 4 * n:] = -allpts[0, :4 * n]
+    allpts[1, 4 * n:] = +allpts[1, :4 * n]
+    allpts[2, 4 * n:] = +allpts[2, :4 * n]
+
+    return allpts
