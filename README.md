@@ -1,4 +1,9 @@
 # sphericalquadpy 
+
+[![CircleCI](https://circleci.com/gh/camminady/sphericalquadpy/tree/master.svg?style=svg)](https://circleci.com/gh/camminady/sphericalquadpy/tree/master)
+[![Build Status](https://travis-ci.com/camminady/sphericalquadpy.svg?branch=master)](https://travis-ci.com/camminady/sphericalquadpy)
+[![codecov](https://img.shields.io/codecov/c/github/camminady/sphericalquadpy.svg)](https://codecov.io/gh/camminady/sphericalquadpy)
+
 **This package is still in a very early development stage!**
 
 
@@ -16,10 +21,6 @@ Where the function lives on the unit sphere and maps to the real numbers.
 The aim of this package is to provide different sets of quadrature points and 
 related quadrature weights to evaluate spherical integral for different 
 functions. 
-
-[![CircleCI](https://circleci.com/gh/camminady/sphericalquadpy/tree/master.svg?style=svg)](https://circleci.com/gh/camminady/sphericalquadpy/tree/master)
-[![Build Status](https://travis-ci.com/camminady/sphericalquadpy.svg?branch=master)](https://travis-ci.com/camminady/sphericalquadpy)
-[![codecov](https://img.shields.io/codecov/c/github/camminady/sphericalquadpy.svg)](https://codecov.io/gh/camminady/sphericalquadpy)
 
 ## Available quadratures
 
