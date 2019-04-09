@@ -4,5 +4,8 @@ from . import quadrature
 from . import montecarlo
 from . import lebedev
 from . import levelsymmetric
+from . import ldfesa
+from . import gausslegendre
 
-__all__ = ["tools", "quadrature", "montecarlo", "lebedev", "levelsymmetric"]
+__all__ = ["tools", "quadrature", "montecarlo", "lebedev", "levelsymmetric",
+           "ldfesa", "gausslegendre"]
