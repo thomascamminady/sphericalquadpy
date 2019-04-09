@@ -91,7 +91,7 @@ quadratures. One goal of spherical quadratures is for them to be isotropic. That
 the quadrature set on the sphere should have little influence on the computation
 of the integral. Thus, every integral was computed a hundred times with different
 random rotations of the same original quadrature set. The mean and variance of the resulting
-errors are showin in the figures below, together with the different functions.
+errors are shown in the figures below, together with the different functions.
 
 
 
