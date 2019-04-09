@@ -97,10 +97,10 @@ errors are showin in the figures below, together with the different functions.
 
 Function |  Convergence
 :-------------------------:|:-------------------------:
-![](https://github.com/camminady/sphericalquadpy/tree/master/test/function1.png) $f(x,y,z) = exp(-10z^2)$ |  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence1.png)
-![](https://github.com/camminady/sphericalquadpy/tree/master/test/function0.png) $f(x,y,z) = exp(10z)$ |  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence0.png)
-![](https://github.com/camminady/sphericalquadpy/tree/master/test/function2.png) $f(x,y,z) = (x>0)(y>0)(z>0)$|  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence2.png)
-
+![](test/function0.png) `f(x,y,z) = exp(10z)` |  ![](test/convergence0.png)
+![](test/function1.png) `f(x,y,z) = exp(-10z^2)` |  ![](test/convergence1.png)
+![](test/function2.png) `f(x,y,z) = 1.0*(x>0)(y>0)(z>0)`|  ![](test/convergence2.png)
+ 
 
 
 
