@@ -23,7 +23,7 @@ def visconvergence(result, legends, func, refintegral, name):
         # ax.errorbar((result[i, :, 0]), meanerr,
         #            yerr=varerr, capthick=2)
         ax.plot(result[i, :, 0], meanerr, linewidth=2)
-        ax.fill_between(result[i, :, 0], meanerr - varerr,
+        ax.fill_between(result[i, :, 0], meanerr,
                         meanerr + varerr,
                         alpha=0.2, linewidth=4, linestyle='dashdot',
                         antialiased=True)
@@ -120,7 +120,7 @@ def computeintegralonsphere(func, refintegral, name):
     visconvergence(results, legends, func, refintegral, name)
 
 
-for i in range(5):
+for i in range(6):
     func, refintegral, name = gettestcase(i)
     computeintegralonsphere(func, refintegral, name)
     visfunctiononsphere(func, refintegral, name)

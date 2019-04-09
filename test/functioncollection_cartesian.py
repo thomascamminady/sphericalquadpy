@@ -35,26 +35,40 @@ def gettestcase(i=0):
 
     if i == 2:
         def f(x, y, z):
-            return 1.0 * (x >= 0) * (y <= 0) * (z >= 0)
-
-        refintegral = pi / 2
-        name = "1.0 * (x >= 0) * (y <= 0) * (z >= 0)"
-        return f, refintegral, name
-
-    if i == 3:
-        def f(x, y, z):
             return exp(z * 10)
 
         refintegral = 13839.63717474464
         name = "exp(10z)"
         return f, refintegral, name
 
-    if i == 4:
+    if i == 3:
+        treshold = 0.0
+
         def f(x, y, z):
-            return 1.0 * (x >= 0) * (y <= 0) * (z >= 0.8)
+            return 1.0 * (x >= 0) * (y <= 0) * (z >= treshold)
+
+        refintegral = pi / 2
+        name = "1.0 * (x >= 0) * (y <= 0) * (z >={})".format(treshold)
+        return f, refintegral, name
+
+    if i == 4:
+        treshold = 0.8
+
+        def f(x, y, z):
+            return 1.0 * (x >= 0) * (y <= 0) * (z >= treshold)
 
         refintegral = 0.3141592646154542
-        name = "1.0 * (x >= 0) * (y <= 0) * (z >= 0.8)"
+        name = "1.0 * (x >= 0) * (y <= 0) * (z >={})".format(treshold)
+        return f, refintegral, name
+
+    if i == 5:
+        treshold = 0.95
+
+        def f(x, y, z):
+            return 1.0 * (x >= 0) * (y <= 0) * (z >= treshold)
+
+        refintegral = 0.0785398161018608
+        name = "1.0 * (x >= 0) * (y <= 0) * (z >={})".format(treshold)
         return f, refintegral, name
 
 
