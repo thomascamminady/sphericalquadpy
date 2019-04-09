@@ -86,8 +86,11 @@ def getquadraturelist():
     gaussleg = sphericalquadpy.gausslegendre.gausslegendre.GaussLegendre
     octalerp = sphericalquadpy.octalerp.octalerp.Octalerp
     octaslerp = sphericalquadpy.octaslerp.octaslerp.Octaslerp
+    icolerp = sphericalquadpy.icolerp.icolerp.Icolerp
+    icoslerp = sphericalquadpy.icoslerp.icoslerp.Icoslerp
 
-    quads = [mc, leb, ls, ldfesa, gaussleg, octalerp, octaslerp]
+    quads = [mc, leb, ls, ldfesa, gaussleg, octalerp, octaslerp, icolerp,
+             icoslerp]
     return quads
 
 

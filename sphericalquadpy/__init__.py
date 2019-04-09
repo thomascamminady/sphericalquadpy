@@ -8,6 +8,9 @@ from . import ldfesa
 from . import gausslegendre
 from . import octalerp
 from . import octaslerp
+from . import icolerp
+from . import icoslerp
 
 __all__ = ["tools", "quadrature", "montecarlo", "lebedev", "levelsymmetric",
-           "ldfesa", "gausslegendre", "octalerp","octaslerp"]
+           "ldfesa", "gausslegendre", "octalerp", "octaslerp", "icolerp",
+           "icoslerp"]
