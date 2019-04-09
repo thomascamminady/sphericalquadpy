@@ -22,7 +22,7 @@ related quadrature weights to evaluate spherical integral for different
 functions. 
 
 ## Summary of quadratures
-Integration of the indicator functin with different quadratures. Full portfolio of test cases further down.
+Integration of the indicator function with different quadratures. Full portfolio of test cases further down.
 
 | Function | Convergence |
 | ------------- |:-------------:|
