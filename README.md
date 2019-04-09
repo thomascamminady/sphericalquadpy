@@ -95,13 +95,14 @@ errors are showin in the figures below, together with the different functions.
 
 
 
-Function f(x,y,z) = exp(-10z^2)|  Convergence
+Function |  Convergence
 :-------------------------:|:-------------------------:
-![](test/function1.png)  |  ![](test/convergence1.png)
+![](https://github.com/camminady/sphericalquadpy/tree/master/test/function1.png) $f(x,y,z) = exp(-10z^2)$ |  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence1.png)
+![](https://github.com/camminady/sphericalquadpy/tree/master/test/function0.png) $f(x,y,z) = exp(10z)$ |  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence0.png)
+![](https://github.com/camminady/sphericalquadpy/tree/master/test/function2.png) $f(x,y,z) = (x>0)(y>0)(z>0)$|  ![](https://github.com/camminady/sphericalquadpy/tree/master/test/convergence2.png)
 
-Function f(x,y,z) = exp(10z)|  Convergence
-:-------------------------:|:-------------------------:
-![](test/function0.png)  |  ![](test/convergence0.png)
+
+
 
 ## Implementation details
 All implemented quadratures inherit from the abstract metaclass `Quadrature`. 

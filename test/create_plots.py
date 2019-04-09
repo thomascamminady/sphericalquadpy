@@ -2,14 +2,12 @@ import sys
 
 sys.path.append('../')
 import sphericalquadpy
-import matplotlib.pyplot as plt
 from numpy import zeros, exp, mean, var
 from sphericalquadpy.tools.rotations import randomrotate
 import matplotlib.pyplot as plt
-from matplotlib import cm, colors
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-from scipy.special import sph_harm
+from sphericalquadpy.tools.sphericalharmonics import ylm
+from sphericalquadpy.tools.transformations import xyz2thetaphi
 
 
 def getquadraturelist():
@@ -35,6 +33,27 @@ def gettestcase(i=1):
 
         refintegral = 3.521692537170621
         name = "exp(-10z^2)"
+        return f, refintegral, name
+
+    if i == 2:
+        def f(x, y, z):
+            return 1.0 * (x >= 0) * (y <= 0) * (z >= 0)
+
+        refintegral = np.pi / 2
+        name = "octant indicator"
+        return f, refintegral, name
+
+    if i == 3:
+        i, j, m, n = 1, 1, 1, 1
+
+        def f(x, y, z):
+            thetaphi = xyz2thetaphi([x, y, z])
+            theta = thetaphi[:, 0]
+            phi = thetaphi[:, 1]
+            return ylm(i, j, theta, phi)
+
+        refintegral = 0
+        name = "spherical harmonic Y_({},{})".format(i, j)
         return f, refintegral, name
 
 
@@ -86,8 +105,8 @@ def test_plots(testcaseid):
 
 
 def vissphericalharmonics(testcaseid):
-    Theta = np.linspace(0, np.pi, 100)
-    Phi = np.linspace(0, 2 * np.pi, 100)
+    Theta = np.linspace(0, 2 * np.pi, 100)
+    Phi = np.linspace(0, np.pi, 100)
     func, _, _ = gettestcase(testcaseid)
     fcolors = zeros((100, 100))
     for i in range(100):
@@ -103,9 +122,7 @@ def vissphericalharmonics(testcaseid):
     fmax, fmin = fcolors.max(), fcolors.min()
     fcolors = (fcolors - fmin) / (fmax - fmin)
 
-    phi = np.linspace(0, np.pi, 100)
-    theta = np.linspace(0, 2 * np.pi, 100)
-    phi, theta = np.meshgrid(phi, theta)
+    phi, theta = np.meshgrid(Phi, Theta)
 
     # The Cartesian coordinates of the unit sphere
     x = np.sin(phi) * np.cos(theta)
@@ -115,13 +132,13 @@ def vissphericalharmonics(testcaseid):
     fig = plt.figure(figsize=plt.figaspect(1.))
     ax = fig.add_subplot(111, projection='3d')
     ax.plot_surface(x, y, z, rstride=1, cstride=1,
-                    facecolors=cm.seismic(fcolors))
+                    facecolors=plt.cm.Spectral_r(fcolors))
     # Turn off the axis planes
     ax.set_axis_off()
     plt.savefig("function{}.png".format(testcaseid))
     plt.show()
 
 
-i = 0
-test_plots(i)
-vissphericalharmonics(i)
+for i in range(3):
+    test_plots(i)
+    vissphericalharmonics(i)
