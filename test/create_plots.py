@@ -8,14 +8,17 @@ import numpy as np
 from sphericalquadpy.tools.sphericalharmonics import ylm
 from sphericalquadpy.tools.transformations import xyz2thetaphi
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import axes3d, Axes3D #<-- Note the capitalization!
+from mpl_toolkits.mplot3d import axes3d, Axes3D  # <-- Note the capitalization!
 
 
 def getquadraturelist():
     mc = sphericalquadpy.montecarlo.montecarlo.MonteCarlo
     leb = sphericalquadpy.lebedev.lebedev.Lebedev
     ls = sphericalquadpy.levelsymmetric.levelsymmetric.Levelsymmetric
-    quads = [mc, leb, ls]
+    ldfesa = sphericalquadpy.ldfesa.ldfesa.LDFESA
+    gaussleg = sphericalquadpy.gausslegendre.gausslegendre.GaussLegendre
+
+    quads = [mc, leb, ls, ldfesa, gaussleg]
     return quads
 
 
@@ -86,7 +89,7 @@ def test_plots(testcaseid):
     quads = getquadraturelist()
     f, refintegral, _ = gettestcase(testcaseid)
 
-    nqs = [2 * (k + 1) for k in range(130)]
+    nqs = [2 ** k for k in range(2,12)]
     nrotations = 100
     results = zeros((len(quads), len(nqs), 1 + nrotations))
     legends = []

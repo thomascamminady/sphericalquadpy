@@ -24,17 +24,29 @@ functions.
 
 ## Available quadratures
 
+- Gauss Legendre quadrature 
+    - uses `numpy.polynomial.legendre.leggauss` in polar angle, equidistant in 
+    azimuthal angle
+    - implemented in `gausslegendre.gausslegendre.GaussLegendre`
+
+- LDFESA quadrature **(use with caution, in beta)**
+    - generated from a lookup table and available for order 1,2 and 3.
+    - implemented in `ldfesa.ldfesa.LDFESA`
+    - taken from the appendix of [this paper by J. J. Jarrell and M. L. Adams](https://inis.iaea.org/collection/NCLCollectionStore/_Public/48/022/48022289.pdf)
+    
+
+
 - Level Symmetric quadrature **(use with caution, in beta)**
     - generated from a lookup table and available for order 2 to 20.
     - only single precision
     - implemented in `sphericalquadpy.levelsymmetric.Levelsymmetric`
-    - taken from http://tflaspoehler.com/ordinates.html
+    - taken from [this source](http://tflaspoehler.com/ordinates.html)
 
 - Lebedev quadrature **(use with caution, in beta)**
     - generated from a lookup table and available for order 3 to 131.
     - only single precision
     - implemented in `sphericalquadpy.lebedev.Lebedev`
-    - taken from http://people.sc.fsu.edu/~jburkardt/datasets/sphere_lebedev_rule/sphere_lebedev_rule.html
+    - taken from [this source](http://people.sc.fsu.edu/~jburkardt/datasets/sphere_lebedev_rule/sphere_lebedev_rule.html)
     
 - Random Points
     - uses random points on the unit sphere with equal weights
