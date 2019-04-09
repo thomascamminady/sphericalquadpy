@@ -20,8 +20,14 @@ def visconvergence(result, legends, func, refintegral, name):
         meanerr = mean(result[i, :, 1:], axis=1)
         varerr = var(result[i, :, 1:], axis=1)
 
-        ax.errorbar((result[i, :, 0]), meanerr,
-                    yerr=varerr, capthick=2)
+        # ax.errorbar((result[i, :, 0]), meanerr,
+        #            yerr=varerr, capthick=2)
+        ax.plot(result[i, :, 0], meanerr, linewidth=2)
+        ax.fill_between(result[i, :, 0], meanerr - varerr,
+                        meanerr + varerr,
+                        alpha=0.2, linewidth=4, linestyle='dashdot',
+                        antialiased=True)
+
     ax.legend(legends)
     ax.set_xlabel("Number of quadrature points")
     if refintegral == 0:
@@ -33,7 +39,7 @@ def visconvergence(result, legends, func, refintegral, name):
         "Integration of {} over the unit sphere\nfor 100 randomly rotated samples".format(
             name))
     ax.grid(True, linewidth=0.5)
-    plt.savefig("convergence{}.png".format(name).replace(" ",""))
+    plt.savefig("figures/convergence{}.png".format(name).replace(" ", ""))
     plt.show()
 
 
@@ -68,7 +74,7 @@ def visfunctiononsphere(func, refintegral, name):
     # Turn off the axis planes
     ax.set_title("f(x,y,z) = {}".format(name))
     ax.set_axis_off()
-    plt.savefig("function{}.png".format(name).replace(" ",""))
+    plt.savefig("figures/function{}.png".format(name).replace(" ", ""))
     plt.show()
 
 

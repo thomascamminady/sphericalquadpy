@@ -26,7 +26,7 @@ Integration of the indicator function with different quadratures. Full portfolio
 
 | Function | Convergence |
 | ------------- |:-------------:|
-|![](test/function1.0*(x>=0)*(y<=0)*(z>=0).png)|![](test/convergence1.0*(x>=0)*(y<=0)*(z>=0).png)|
+|![](test/figures/function1.0*(x>=0)*(y<=0)*(z>=0).png)|![](test/figures/convergence1.0*(x>=0)*(y<=0)*(z>=0).png)|
 
 | Quadrature | Type | Max Order | Max Nq | Random | Symmetry | Nestedness | Precision
 | ------------- | ------------- | ------------- |------------- | ------------- | ------------- | ------------- | ------------- | 
@@ -125,19 +125,19 @@ errors are shown in the figures below, together with the different functions.
 
 | Function | Convergence |
 | ------------- |:-------------:|
-|![](test/function1.0*(x>=0)*(y<=0)*(z>=0).png)| ![](test/convergence1.0*(x>=0)*(y<=0)*(z>=0).png) |
+|![](test/figures/function1.0*(x>=0)*(y<=0)*(z>=0).png)| ![](test/figures/convergence1.0*(x>=0)*(y<=0)*(z>=0).png) |
 
 | Function | Convergence |
 | ------------- |:-------------:|
-|![](test/functionexp(-10z^2).png)| ![](test/convergenceexp(-10z^2).png)|
+|![](test/figures/functionexp(-10z^2).png)| ![](test/figures/convergenceexp(-10z^2).png)|
 
 | Function | Convergence |
 | ------------- |:-------------:|
-|![](test/functionsphericalharmonicY_(5,6).png)|![](test/convergencesphericalharmonicY_(5,6).png)|
+|![](test/figures/functionsphericalharmonicY_(5,6).png)|![](test/figures/convergencesphericalharmonicY_(5,6).png)|
  
 | Function | Convergence |
 | ------------- |:-------------:|
-|![](test/functionexp(10z).png)|![](test/convergenceexp(10z).png)|
+|![](test/figures/functionexp(10z).png)|![](test/figures/convergenceexp(10z).png)|
  
  
 ## Implementation details
