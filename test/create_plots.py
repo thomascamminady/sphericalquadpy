@@ -9,6 +9,7 @@ from sphericalquadpy.tools.sphericalharmonics import ylm
 from sphericalquadpy.tools.transformations import xyz2thetaphi
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d, Axes3D  # <-- Note the capitalization!
+from scipy.special import sph_harm
 
 
 def getquadraturelist():
@@ -48,13 +49,15 @@ def gettestcase(i=1):
         return f, refintegral, name
 
     if i == 3:
-        i, j, m, n = 1, 1, 1, 1
+        i, j, m, n = 2, 3, 2, 3
 
         def f(x, y, z):
             thetaphi = xyz2thetaphi([x, y, z])
             theta = thetaphi[:, 0]
             phi = thetaphi[:, 1]
-            return ylm(i, j, theta, phi)
+            return sph_harm(i, j, theta, phi)
+
+        #            return ylm(i, j, theta, phi)
 
         refintegral = 0
         name = "spherical harmonic Y_({},{})".format(i, j)
@@ -66,6 +69,7 @@ def create_plot(result, legends, testcaseid):
     ax = fig.add_subplot(1, 1, 1)
     ax.set_yscale('log')
     ax.set_xscale('log')
+    _, refintegral, name = gettestcase(testcaseid)
 
     for i, _ in enumerate(legends):
         meanerr = mean(result[i, :, 1:], axis=1)
@@ -75,8 +79,11 @@ def create_plot(result, legends, testcaseid):
                     yerr=varerr, capthick=2)
     ax.legend(legends)
     ax.set_xlabel("Number of quadrature points")
-    ax.set_ylabel("Mean relative error with variance ")
-    _, _, name = gettestcase(testcaseid)
+    if refintegral == 0:
+        ax.set_ylabel("Mean absolute error with variance ")
+    else:
+        ax.set_ylabel("Mean relative error with variance ")
+
     ax.set_title(
         "Integration of {} over the unit sphere\nfor 100 randomly rotated samples".format(
             name))
@@ -89,7 +96,7 @@ def test_plots(testcaseid):
     quads = getquadraturelist()
     f, refintegral, _ = gettestcase(testcaseid)
 
-    nqs = [2 ** k for k in range(2,12)]
+    nqs = [2 ** k for k in range(2, 12)]
     nrotations = 100
     results = zeros((len(quads), len(nqs), 1 + nrotations))
     legends = []
@@ -100,7 +107,10 @@ def test_plots(testcaseid):
                 legends.append(q.name())
             for k in range(nrotations):
                 q.xyz = randomrotate(q.xyz)
-                val = abs(q.integrate(f) - refintegral) / abs(refintegral)
+                if refintegral == 0:
+                    val = abs(q.integrate(f) - refintegral)
+                else:
+                    val = abs(q.integrate(f) - refintegral) / abs(refintegral)
                 realnq = len(q.weights)
                 results[i, j, 0] = realnq
                 results[i, j, 1 + k] = val
@@ -109,8 +119,8 @@ def test_plots(testcaseid):
 
 
 def vissphericalharmonics(testcaseid):
-    Theta = np.linspace(0, 2 * np.pi, 100)
     Phi = np.linspace(0, np.pi, 100)
+    Theta = np.linspace(0, 2 * np.pi, 100)
     func, _, name = gettestcase(testcaseid)
     fcolors = zeros((100, 100))
     for i in range(100):
@@ -121,7 +131,7 @@ def vissphericalharmonics(testcaseid):
             y = np.sin(phi) * np.sin(theta)
             z = np.cos(phi)
 
-            fcolors[i, j] = func(x, y, z)
+            fcolors[i, j] = func(x, y, z).real
 
     fmax, fmin = fcolors.max(), fcolors.min()
     fcolors = (fcolors - fmin) / (fmax - fmin)
@@ -144,6 +154,6 @@ def vissphericalharmonics(testcaseid):
     plt.show()
 
 
-for i in range(3):
+for i in range(4):
     test_plots(i)
     vissphericalharmonics(i)

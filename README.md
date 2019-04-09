@@ -135,7 +135,11 @@ errors are shown in the figures below, together with the different functions.
 | ------------- |:-------------:|
 |![](test/function2.png)|![](test/convergence2.png)|
  
-
+| Function | Convergence |
+| ------------- |:-------------:|
+|![](test/function3.png)|![](test/convergence3.png)|
+ 
+ 
 ## Implementation details
 All implemented quadratures inherit from the abstract metaclass `Quadrature`. 
 Any new implementation of a quadrature has to implement the following routines 
