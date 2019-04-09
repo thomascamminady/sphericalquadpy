@@ -35,9 +35,21 @@ Integration of the indicator function with different quadratures. Full portfolio
 | `LevelSymmetric`| lookup table | `20`| `432` | no | per octant | partially  | ?
 | `Lebedev`| lookup table | `131`| `5810` | no | ? | ? | `1E-8`
 | `MonteCarlo`| generated| `inf`| `inf` | yes | no | no | `1E-16`
- 
+| `Octalerp`|
+| `Octaslerp`|
+| `Icolerp`|
+| `Icoslerp`|
+
  
 ## Details for quadratures
+
+- Octalerp quadrature
+
+- Octaslerp quadrature
+
+- Icolerp quadrature
+
+- Icoslerp quadrature
 
 - Gauss Legendre quadrature 
     - uses `numpy.polynomial.legendre.leggauss` in polar angle, equidistant in 
@@ -49,8 +61,6 @@ Integration of the indicator function with different quadratures. Full portfolio
     - implemented in `ldfesa.ldfesa.LDFESA`
     - taken from the appendix of [this paper by J. J. Jarrell and M. L. Adams](https://inis.iaea.org/collection/NCLCollectionStore/_Public/48/022/48022289.pdf)
     
-
-
 - Level Symmetric quadrature **(use with caution, in beta)**
     - generated from a lookup table and available for order 2 to 20.
     - only single precision
