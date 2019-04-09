@@ -93,9 +93,17 @@ of the integral. Thus, every integral was computed a hundred times with differen
 random rotations of the same original quadrature set. The mean and variance of the resulting
 errors are shown in the figures below, together with the different functions.
 
-![](test/function0.png) ![](test/convergence0.png) 
-![](test/function1.png) ![](test/convergence1.png)
-![](test/function2.png) ![](test/convergence2.png)
+| Function | Convergence |
+| ------------- |:-------------:|
+|![](test/function0.png)| ![](test/convergence0.png) |
+
+| Function | Convergence |
+| ------------- |:-------------:|
+|![](test/function1.png)| ![](test/convergence1.png)|
+
+| Function | Convergence |
+| ------------- |:-------------:|
+|![](test/function2.png)|![](test/convergence2.png)|
  
 
 ## Implementation details
