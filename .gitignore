@@ -114,6 +114,7 @@ relerrors.txt
 
 *.ipynb
 
-sphericalquadpy/lebedev/data/*
-sphericalquadpy/levelsymmetric/data/*
 test/coverage/*
+setup.py
+sphericalquadpy/__about__.py
+test/test_about.py
