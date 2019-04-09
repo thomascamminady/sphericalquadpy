@@ -4,10 +4,11 @@ sys.path.append('../')
 import sphericalquadpy
 from numpy import zeros, exp, mean, var
 from sphericalquadpy.tools.rotations import randomrotate
-import matplotlib.pyplot as plt
 import numpy as np
 from sphericalquadpy.tools.sphericalharmonics import ylm
 from sphericalquadpy.tools.transformations import xyz2thetaphi
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d, Axes3D #<-- Note the capitalization!
 
 
 def getquadraturelist():
@@ -40,7 +41,7 @@ def gettestcase(i=1):
             return 1.0 * (x >= 0) * (y <= 0) * (z >= 0)
 
         refintegral = np.pi / 2
-        name = "octant indicator"
+        name = "1.0 * (x >= 0) * (y <= 0) * (z >= 0)"
         return f, refintegral, name
 
     if i == 3:
@@ -107,7 +108,7 @@ def test_plots(testcaseid):
 def vissphericalharmonics(testcaseid):
     Theta = np.linspace(0, 2 * np.pi, 100)
     Phi = np.linspace(0, np.pi, 100)
-    func, _, _ = gettestcase(testcaseid)
+    func, _, name = gettestcase(testcaseid)
     fcolors = zeros((100, 100))
     for i in range(100):
         for j in range(100):
@@ -134,6 +135,7 @@ def vissphericalharmonics(testcaseid):
     ax.plot_surface(x, y, z, rstride=1, cstride=1,
                     facecolors=plt.cm.Spectral_r(fcolors))
     # Turn off the axis planes
+    ax.set_title("f(x,y,z) = {}".format(name))
     ax.set_axis_off()
     plt.savefig("function{}.png".format(testcaseid))
     plt.show()
