@@ -6,6 +6,7 @@ from . import lebedev
 from . import levelsymmetric
 from . import ldfesa
 from . import gausslegendre
+from . import octalerp
 
 __all__ = ["tools", "quadrature", "montecarlo", "lebedev", "levelsymmetric",
-           "ldfesa", "gausslegendre"]
+           "ldfesa", "gausslegendre", "octalerp"]
