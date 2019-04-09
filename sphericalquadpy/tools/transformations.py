@@ -56,12 +56,11 @@ def xyz2thetaphi(xyz):
     xyz = cast2matrix(xyz, 3)
 
     n, dim = xyz.shape
-
     thetaphi = zeros((n, 2))
     for i in range(n):
         x, y, z = xyz[i, :]
         r = norm([x, y, z])
-        if not abs(r - 1.0) < 1.0e-14:
+        if not abs(r - 1.0) < 1.0e-6:
             raise ValueError(
                 "Point %i does not live on the unit sphere. "
                 "The coordinates are (%d,%d,%d) wit norm %d." % (i, x, y, z, r)
