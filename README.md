@@ -139,6 +139,10 @@ errors are shown in the figures below, together with the different functions.
 | ------------- |:-------------:|
 |![](test/figures/functionexp(10z).png)|![](test/figures/convergenceexp(10z).png)|
  
+ | Function | Convergence |
+| ------------- |:-------------:|
+|![](test/figures/function1.0*(x>=0)*(y<=0)*(z>=0.8).png)| ![](test/figures/convergence1.0*(x>=0)*(y<=0)*(z>=0.8).png) |
+ 
  
 ## Implementation details
 All implemented quadratures inherit from the abstract metaclass `Quadrature`. 

@@ -115,7 +115,7 @@ def computeintegralonsphere(func, refintegral, name):
     visconvergence(results, legends, func, refintegral, name)
 
 
-for i in range(4):
+for i in range(5):
     func, refintegral, name = gettestcase(i)
     computeintegralonsphere(func, refintegral, name)
     visfunctiononsphere(func, refintegral, name)

@@ -49,6 +49,14 @@ def gettestcase(i=0):
         name = "exp(10z)"
         return f, refintegral, name
 
+    if i == 4:
+        def f(x, y, z):
+            return 1.0 * (x >= 0) * (y <= 0) * (z >= 0.8)
+
+        refintegral = 0.3141592646154542
+        name = "1.0 * (x >= 0) * (y <= 0) * (z >= 0.8)"
+        return f, refintegral, name
+
 
 def f1(x, y, z):
     """The constant function."""
