@@ -1,8 +1,9 @@
 """Levelsymmetric quadrature"""
-from numpy import pi
+from numpy import pi, loadtxt
 from sphericalquadpy.quadrature.quadrature import Quadrature
 from sphericalquadpy.tools.findnearest import find_nearest
 from sphericalquadpy.levelsymmetric.writtendict import levelsymmetricdictionary
+import os
 
 AVAILABLEORDERS = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 NUMBERQUADPOINTS = [8, 24, 48, 80, 120, 168, 224, 288, 360, 432]
@@ -31,9 +32,13 @@ class Levelsymmetric(Quadrature):
                 "Order not available. Next closest would be" "%i.",
                 AVAILABLEORDERS[neighbor],
             )
-
-        d = levelsymmetricdictionary()
-        xyzw = d[order]
+        filename = "data/" + str(order) + "_levelsym.txt"
+        __location__ = os.path.realpath(
+            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        path = os.path.join(__location__, filename)
+        xyzw = loadtxt(path, delimiter=",")
+        # d = levelsymmetricdictionary()
+        # xyzw = d[order]
         return xyzw[:, 0:3]
 
     def computequadweights(self, order):
@@ -44,9 +49,13 @@ class Levelsymmetric(Quadrature):
                 "Order not available. Next closest would be" "%i.",
                 AVAILABLEORDERS[neighbor],
             )
-
-        d = levelsymmetricdictionary()
-        xyzw = d[order]
+        filename = "data/" + str(order) + "_levelsym.txt"
+        __location__ = os.path.realpath(
+            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        path = os.path.join(__location__, filename)
+        xyzw = loadtxt(path, delimiter=",")
+        # d = levelsymmetricdictionary()
+        # xyzw = d[order]
         w = xyzw[:, 3]
         w /= sum(w)
         w *= 4 * pi
