@@ -1,12 +1,12 @@
-from sphericalquadpy.octalerp.octalerp import Octalerp
+from sphericalquadpy.octaslerp.octaslerp import Octaslerp
 import pytest
 from numpy import pi, inf
 
 
 def test_lebedev():
-    Q = Octalerp(nq = 100)
+    Q = Octaslerp(nq = 100)
 
-    assert Q.name() == "Octalerp Quadrature"
+    assert Q.name() == "Octaslerp Quadrature"
 
     assert Q.getmaximalorder() == 80
 
@@ -19,7 +19,7 @@ def test_lebedev():
 
 
 def test_weights():
-    Q = Octalerp(nq = 100)
+    Q = Octaslerp(nq = 100)
     assert abs(sum(Q.weights) - 4 * pi) < 1e-10
 
 
@@ -27,11 +27,11 @@ def test_weights():
 
 def test_invalid():
     with pytest.raises(Exception):
-        Q = Octalerp(order=3)
+        Q = Octaslerp(order=3)
 
 
 def test_invalid2():
-    Q = Octalerp(order=4)
+    Q = Octaslerp(order=4)
     with pytest.raises(Exception):
         _ = Q.computequadpoints(-234234234234)
     with pytest.raises(Exception):

@@ -1,5 +1,5 @@
 from sphericalquadpy.tools.geometryhelper import cross, cross_, project, lerp, \
-    slerp, distance, angle, s2area, area, EPSILON
+    slerp, distance, angle, s2area, area, EPSILON, eightfold
 from numpy import zeros, ones, sqrt, pi
 from numpy.linalg import norm
 from numpy.random import rand, randn
@@ -99,6 +99,7 @@ def test_angle():  # area of octant
 
     assert norm(angle(vec2, vec1, vec3) - pi / 2) < 1e-12
 
+
 def test_area():  # area of octant
     vec1 = zeros(3)
     vec2 = zeros(3)
@@ -133,3 +134,15 @@ def test_s2area():  # area of octant
     vec3[2] = 100
 
     assert norm(s2area(vec1, vec2, vec3) - pi / 2) < 1e-12
+
+
+def test_eightfold():
+    pts = zeros((3, 1))
+    pts[0, 0] = 1
+    pts[1, 0] = 2
+    pts[2, 0] = 3
+
+    allpts = eightfold(pts)
+    n,m = allpts.shape
+    assert n == 3
+    assert m == 8

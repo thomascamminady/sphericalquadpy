@@ -20,11 +20,10 @@ class Dummy(Quadrature):
     def computequadweights(self, order):
         """Quadrature weights for Dummy quadrature. Read from file."""
         w = 1
-        w /= sum(w)
-        w *= 4 * pi
+
         return w
 
     def nqbyorder(self, order):
         """Scales in the following way"""
-        nq = order ** 2
+        nq = order
         return order, nq
