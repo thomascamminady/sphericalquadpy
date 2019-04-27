@@ -118,3 +118,4 @@ test/coverage/*
 setup.py
 sphericalquadpy/__about__.py
 test/test_about.py
+test/*.csv
