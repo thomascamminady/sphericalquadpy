@@ -13,7 +13,7 @@ from scipy.special import sph_harm
 
 def gettestcase(i=0):
     if i == 0:
-        k, l, m, n = 5, 6, 5, 6
+        k, l, m, n = 1, 2, 1, 2
 
         def f(x, y, z):
             thetaphi = xyz2thetaphi([x, y, z])
@@ -27,10 +27,10 @@ def gettestcase(i=0):
 
     if i == 1:
         def f(x, y, z):
-            return exp(-z * z * 10)
+            return exp(-z * z * 3)
 
-        refintegral = 3.521692537170621
-        name = "exp(-10z^2)"
+        refintegral = 6.337768044407563
+        name = "exp(-3z^2)"
         return f, refintegral, name
 
     if i == 2:
@@ -69,6 +69,45 @@ def gettestcase(i=0):
 
         refintegral = 0.0785398161018608
         name = "1.0 * (x >= 0) * (y <= 0) * (z >={})".format(treshold)
+        return f, refintegral, name
+
+    if i == 6:
+        a, b, c = 2, 2, 0
+
+        def f(x, y, z):
+            return x ** a * y ** b * z ** c
+
+        refintegral = 4 * pi / 15
+        name = "x^{} y^{} z^{}".format(a, b, c)
+        return f, refintegral, name
+    if i == 7:
+        a, b, c = 2, 2, 2
+
+        def f(x, y, z):
+            return x ** a * y ** b * z ** c
+
+        refintegral = 4 / 105 * pi
+        name = "x^{} y^{} z^{}".format(a, b, c)
+        return f, refintegral, name
+    if i == 8:
+        a, b, c = 2, 2, 2
+
+        def f(x, y, z):
+            tmp = 1.0 * (x >= 0) * (y <= 0) * (z >= 0)
+            return tmp * x ** a * y ** b * z ** c
+
+        refintegral = 4 / 105 * pi / 8
+        name = "indicator * x^{} y^{} z^{}".format(a, b, c)
+        return f, refintegral, name
+    if i == 9:
+        a, b, c = 10, 12, 14
+
+        def f(x, y, z):
+            tmp = 1.0 * (x >= 0) * (y <= 0) * (z >= 0)
+            return tmp * x ** a * y ** b * z ** c
+
+        refintegral = 2.542658867465509 * 1e-10
+        name = "indicator * x^{} y^{} z^{}".format(a, b, c)
         return f, refintegral, name
 
 
