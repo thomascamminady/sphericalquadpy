@@ -1,5 +1,16 @@
-from sphericalquadpy.tools.geometryhelper import cross, cross_, project, lerp, \
-    slerp, distance, angle, s2area, area, EPSILON, eightfold
+from sphericalquadpy.tools.geometryhelper import (
+    cross,
+    cross_,
+    project,
+    lerp,
+    slerp,
+    distance,
+    angle,
+    s2area,
+    area,
+    EPSILON,
+    eightfold,
+)
 from numpy import zeros, ones, sqrt, pi
 from numpy.linalg import norm
 from numpy.random import rand, randn
@@ -143,6 +154,6 @@ def test_eightfold():
     pts[2, 0] = 3
 
     allpts = eightfold(pts)
-    n,m = allpts.shape
+    n, m = allpts.shape
     assert n == 3
     assert m == 8

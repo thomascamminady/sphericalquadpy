@@ -34,7 +34,8 @@ class Levelsymmetric(Quadrature):
             )
         filename = "data/" + str(order) + "_levelsym.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter=",")
         # d = levelsymmetricdictionary()
@@ -51,7 +52,8 @@ class Levelsymmetric(Quadrature):
             )
         filename = "data/" + str(order) + "_levelsym.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter=",")
         # d = levelsymmetricdictionary()

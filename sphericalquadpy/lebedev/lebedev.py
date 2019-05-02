@@ -102,7 +102,8 @@ class Lebedev(Quadrature):
             )
         filename = "data/" + str(order) + "_lebedev.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter=",")
         # d = lebedevdictionary()
@@ -120,7 +121,8 @@ class Lebedev(Quadrature):
             )
         filename = "data/" + str(order) + "_lebedev.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter=",")
         # d = lebedevdictionary()

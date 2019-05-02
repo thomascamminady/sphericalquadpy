@@ -105,25 +105,25 @@ def eightfold(pts):
     _, n = pts.shape
     allpts = zeros((3, 8 * n))
 
-    allpts[0, 0 * n:1 * n] = +pts[0, :]
-    allpts[1, 0 * n:1 * n] = +pts[1, :]
-    allpts[2, 0 * n:1 * n] = +pts[2, :]
+    allpts[0, 0 * n : 1 * n] = +pts[0, :]
+    allpts[1, 0 * n : 1 * n] = +pts[1, :]
+    allpts[2, 0 * n : 1 * n] = +pts[2, :]
 
-    allpts[0, 1 * n:2 * n] = +pts[0, :]
-    allpts[1, 1 * n:2 * n] = -pts[1, :]
-    allpts[2, 1 * n:2 * n] = +pts[2, :]
+    allpts[0, 1 * n : 2 * n] = +pts[0, :]
+    allpts[1, 1 * n : 2 * n] = -pts[1, :]
+    allpts[2, 1 * n : 2 * n] = +pts[2, :]
 
-    allpts[0, 2 * n:3 * n] = +pts[0, :]
-    allpts[1, 2 * n:3 * n] = +pts[1, :]
-    allpts[2, 2 * n:3 * n] = -pts[2, :]
+    allpts[0, 2 * n : 3 * n] = +pts[0, :]
+    allpts[1, 2 * n : 3 * n] = +pts[1, :]
+    allpts[2, 2 * n : 3 * n] = -pts[2, :]
 
-    allpts[0, 3 * n:4 * n] = +pts[0, :]
-    allpts[1, 3 * n:4 * n] = -pts[1, :]
-    allpts[2, 3 * n:4 * n] = -pts[2, :]
+    allpts[0, 3 * n : 4 * n] = +pts[0, :]
+    allpts[1, 3 * n : 4 * n] = -pts[1, :]
+    allpts[2, 3 * n : 4 * n] = -pts[2, :]
 
     # duplicate upper to lower
-    allpts[0, 4 * n:] = -allpts[0, :4 * n]
-    allpts[1, 4 * n:] = +allpts[1, :4 * n]
-    allpts[2, 4 * n:] = +allpts[2, :4 * n]
+    allpts[0, 4 * n :] = -allpts[0, : 4 * n]
+    allpts[1, 4 * n :] = +allpts[1, : 4 * n]
+    allpts[2, 4 * n :] = +allpts[2, : 4 * n]
 
     return allpts

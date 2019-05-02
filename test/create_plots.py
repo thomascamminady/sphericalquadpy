@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append('../')
+sys.path.append("../")
 import sphericalquadpy
 from numpy import zeros, exp, mean, var
 from sphericalquadpy.tools.rotations import randomrotate
@@ -16,8 +16,8 @@ import seaborn as sns
 def visconvergence(result, legends, func, refintegral, name):
     fig = plt.figure(figsize=(15, 10))
     ax = fig.add_subplot(1, 1, 1)
-    ax.set_yscale('log')
-    ax.set_xscale('log')
+    ax.set_yscale("log")
+    ax.set_xscale("log")
 
     for i, _ in enumerate(legends):
         meanerr = mean(result[i, :, 1:], axis=1)
@@ -26,13 +26,18 @@ def visconvergence(result, legends, func, refintegral, name):
         # ax.errorbar((result[i, :, 0]), meanerr,
         #            yerr=varerr, capthick=2)
         ax.plot(result[i, :, 0], meanerr, linewidth=3)
-        ax.fill_between(result[i, :, 0], meanerr,
-                        meanerr + 3 * varerr,
-                        alpha=0.2, linewidth=15, linestyle='dashdot',
-                        antialiased=True)
+        ax.fill_between(
+            result[i, :, 0],
+            meanerr,
+            meanerr + 3 * varerr,
+            alpha=0.2,
+            linewidth=15,
+            linestyle="dashdot",
+            antialiased=True,
+        )
     tmp = ax.get_ylim()
     print(tmp)
-    plt.ylim(max(1e-6,min(tmp)),max(tmp))
+    plt.ylim(max(1e-6, min(tmp)), max(tmp))
     ax.legend(legends)
     ax.set_xlabel("Number of quadrature points")
     if refintegral == 0:
@@ -41,8 +46,9 @@ def visconvergence(result, legends, func, refintegral, name):
         ax.set_ylabel("Mean relative error with variance ")
 
     ax.set_title(
-        r"Integration of ${}$ over the unit sphere".format(
-            name) + "\n for 100 randomly rotated samples")
+        r"Integration of ${}$ over the unit sphere".format(name)
+        + "\n for 100 randomly rotated samples"
+    )
     ax.grid(True, linewidth=0.5)
     plt.savefig("figures/convergence{}.png".format(name).replace(" ", ""))
     plt.show()
@@ -72,10 +78,11 @@ def visfunctiononsphere(func, refintegral, name):
     y = np.sin(phi) * np.sin(theta)
     z = np.cos(phi)
     # Set the aspect ratio to 1 so our sphere looks spherical
-    fig = plt.figure(figsize=(10, 10), dpi=80, )
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(x, y, z, rstride=1, cstride=1,
-                    facecolors=plt.cm.Spectral_r(fcolors))
+    fig = plt.figure(figsize=(10, 10), dpi=80)
+    ax = fig.add_subplot(111, projection="3d")
+    ax.plot_surface(
+        x, y, z, rstride=1, cstride=1, facecolors=plt.cm.Spectral_r(fcolors)
+    )
     fig.tight_layout()
     # Turn off the axis planes
     # ax.set_title(r"$f(x,y,z) = {}$".format(name))
@@ -86,8 +93,9 @@ def visfunctiononsphere(func, refintegral, name):
 
     ax.set_axis_off()
 
-    plt.savefig("figures/function{}.png".format(name).replace(" ", ""),
-                bbox_inches='tight')
+    plt.savefig(
+        "figures/function{}.png".format(name).replace(" ", ""), bbox_inches="tight"
+    )
     plt.show()
 
 
@@ -102,8 +110,7 @@ def getquadraturelist():
     icolerp = sphericalquadpy.icolerp.icolerp.Icolerp
     icoslerp = sphericalquadpy.icoslerp.icoslerp.Icoslerp
 
-    quads = [mc, leb, gaussleg, ldfesa, octalerp, octaslerp, icolerp,
-             icoslerp]
+    quads = [mc, leb, gaussleg, ldfesa, octalerp, octaslerp, icolerp, icoslerp]
     return quads
 
 
@@ -124,8 +131,7 @@ def computeintegralonsphere(func, refintegral, name):
                 if refintegral == 0:
                     val = abs(q.integrate(func) - refintegral)
                 else:
-                    val = abs(q.integrate(func) - refintegral) / abs(
-                        refintegral)
+                    val = abs(q.integrate(func) - refintegral) / abs(refintegral)
                 realnq = len(q.weights)
                 results[i, j, 0] = realnq
                 results[i, j, 1 + k] = val
@@ -137,7 +143,7 @@ def computeweightratio():
     quads = getquadraturelist()
     nqs = [2 ** k for k in range(2, 12)]
 
-    df = pd.DataFrame(columns=['name', 'nq', 'min', 'max', 'mean', 'var'])
+    df = pd.DataFrame(columns=["name", "nq", "min", "max", "mean", "var"])
     for quad in quads:
         print(quad)
         for i, nq in enumerate(nqs):
@@ -156,8 +162,8 @@ def fulldf():
     nqs = [2 ** k for k in range(2, 12)]
 
     df = pd.DataFrame(
-        columns=['name', 'nq', 'id', 'weight', 'ratiotomin', 'ratiotomean',
-                 'nqtimesw'])
+        columns=["name", "nq", "id", "weight", "ratiotomin", "ratiotomean", "nqtimesw"]
+    )
     for quad in quads:
         print(quad)
         lastnq = 0
@@ -170,8 +176,15 @@ def fulldf():
             minweight = min(ws)
             meanweight = mean(ws)
             for j, w in enumerate(ws):
-                df.loc[-1] = [q.name(), len(ws), j, w, w / minweight,
-                              w / meanweight, w * len(ws)]
+                df.loc[-1] = [
+                    q.name(),
+                    len(ws),
+                    j,
+                    w,
+                    w / minweight,
+                    w / meanweight,
+                    w * len(ws),
+                ]
 
                 df.index = df.index + 1  # shifting index
     df = df.sort_index()
@@ -179,11 +192,9 @@ def fulldf():
     df.to_csv("quadrature_summary_full.csv")
 
 
-font = {'family': 'normal',
-        'weight': 'bold',
-        'size': 22}
+font = {"family": "normal", "weight": "bold", "size": 22}
 
-matplotlib.rc('font', **font)
+matplotlib.rc("font", **font)
 f
 # computeweightratio()
 # fulldf()

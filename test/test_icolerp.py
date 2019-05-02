@@ -4,7 +4,7 @@ from numpy import pi, inf
 
 
 def test_lebedev():
-    Q = Icolerp(nq = 100)
+    Q = Icolerp(nq=100)
 
     assert Q.name() == "Icolerp Quadrature"
 
@@ -19,10 +19,8 @@ def test_lebedev():
 
 
 def test_weights():
-    Q = Icolerp(nq = 100)
+    Q = Icolerp(nq=100)
     assert abs(sum(Q.weights) - 4 * pi) < 1e-10
-
-
 
 
 def test_invalid():

@@ -26,6 +26,7 @@ def gettestcase(i=0):
         return f, refintegral, name
 
     if i == 1:
+
         def f(x, y, z):
             return exp(-z * z * 3)
 
@@ -34,6 +35,7 @@ def gettestcase(i=0):
         return f, refintegral, name
 
     if i == 2:
+
         def f(x, y, z):
             return exp(z * 10)
 

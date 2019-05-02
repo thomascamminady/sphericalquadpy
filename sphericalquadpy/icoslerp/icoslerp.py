@@ -6,8 +6,7 @@ import os
 
 AVAILABLEORDERS = [2 * (i + 1) for i in range(20)]
 
-NUMBERQUADPOINTS = [10*n**2-20*n+12 for _, n in
-                    enumerate(AVAILABLEORDERS)]
+NUMBERQUADPOINTS = [10 * n ** 2 - 20 * n + 12 for _, n in enumerate(AVAILABLEORDERS)]
 
 
 class Icoslerp(Quadrature):
@@ -29,7 +28,8 @@ class Icoslerp(Quadrature):
             )
         filename = "data/" + str(order) + "_s_ico.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter="\t")
         return xyzw[:, 0:3]
@@ -45,7 +45,8 @@ class Icoslerp(Quadrature):
 
         filename = "data/" + str(order) + "_s_ico.txt"
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
         path = os.path.join(__location__, filename)
         xyzw = loadtxt(path, delimiter="\t")
         w = xyzw[:, 3]

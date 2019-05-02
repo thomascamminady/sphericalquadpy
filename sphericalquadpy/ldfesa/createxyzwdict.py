@@ -26,9 +26,9 @@ def writedict():
     np.set_printoptions(precision=15)
     with open("writtendict.py", "w") as f:
         mystring = (
-                "from numpy import array\n"
-                "def ldfesadictionary():\n"
-                "\treturn (" + str(d) + ")"
+            "from numpy import array\n"
+            "def ldfesadictionary():\n"
+            "\treturn (" + str(d) + ")"
         )
 
         print(mystring, file=f)

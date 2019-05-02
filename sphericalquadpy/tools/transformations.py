@@ -33,8 +33,7 @@ def cast2matrix(x, dim):
             if x.shape[0] == dim:  # has to be transposed since it is 3 x n
                 return x.T
         if len(x.shape) > 2:
-            raise ValueError(
-                "Numpy ndarrays as input have to be vectors or matrices.")
+            raise ValueError("Numpy ndarrays as input have to be vectors or matrices.")
 
 
 def xyz2thetaphi(xyz):
@@ -64,8 +63,7 @@ def xyz2thetaphi(xyz):
         if not abs(r - 1.0) < 1.0e-6:
             raise ValueError(
                 "Point %i does not live on the unit sphere. "
-                "The coordinates are (%d,%d,%d) wit norm %d." % (
-                    i, x, y, z, sqrt(r))
+                "The coordinates are (%d,%d,%d) wit norm %d." % (i, x, y, z, sqrt(r))
             )
         thetaphi[i, 0] = arctan2(xyz[i, 1], xyz[i, 0])
         thetaphi[i, 1] = arccos(xyz[i, 2])
