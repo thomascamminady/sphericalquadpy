@@ -176,7 +176,7 @@ def computeweights(rhos, omegas, a, x0, x1, z0, z1):
                     + c[3, i] * z / r
                     ) * abs(a ** 1 / r ** 3)
 
-        val, err = dblquad(bi, x0, x1, z0, z1)
+        val, err = dblquad(bi,z0,z1,x0,x1)
         weights[i] = val
     return weights
 
