@@ -5,8 +5,8 @@ from numpy import sqrt, linspace, array, ones, \
 from numpy.linalg import solve, norm
 from numpy.random import rand
 from scipy.integrate import dblquad
-from scipy.optimize import least_squares
-
+from scipy.optimize import least_squares, dual_annealing
+from numba import jit
 from sphericalquadpy.ldfeLinDisc.helper.miscellaneous import project, EPSILON
 from sphericalquadpy.ldfeLinDisc.helper.sphericaltrigonometry import s2area
 from sphericalquadpy.ldfeLinDisc.vistools import scatterplot
@@ -44,6 +44,7 @@ def ldfe(n=3):
     weights = zeros(1 * 1 * 4 * n * n)
     square = zeros(1 * 1 * 4 * n * n)
     counter = 0
+    rhos0 = 0.1 * ones(4)
     for i in range(n):
         for j in range(n):
             x0, x1, z0, z1 = x[i], x[i + 1], z[j], z[j + 1]
@@ -53,8 +54,10 @@ def ldfe(n=3):
             print("\n\nOptimiztation for:")
             print("Domain:")
             print([x0, x1, z0, z1])
-            rhos = optimizeposition_leastsquares(areas, omegas, x0, x1, z0, z1)
-            # plotting
+
+            rhos = optimizeposition_leastsquares(areas, omegas, x0, x1, z0, z1,
+                                                 rhos0)
+            rhos0 = rhos  # take the optimal parameter of this cell as the starting value for the optimizer in the next cell
             dummy = rand()
             for k in range(4):
                 points[counter, :] = project(omegas[k](rhos[k]))
@@ -65,13 +68,12 @@ def ldfe(n=3):
     return points, weights
 
 
-def optimizeposition_leastsquares(areas, omegas, x0, x1, z0, z1):
+def optimizeposition_leastsquares(areas, omegas, x0, x1, z0, z1, rhos0):
     def tomin(r):
         y = f(r, omegas, 1 / sqrt(3), x0, x1, z0, z1, areas)
         # print(norm(y))
         return norm(y)
 
-    rhos0 = 0.1 * ones(4)
     res = least_squares(tomin, rhos0, bounds=((0, 1)))
     print("Optimal rho:")
     print(res.x)
@@ -103,11 +105,14 @@ def optimizeposition(areas, omegas, x0, x1, z0, z1):
     # of the edge connecting the midpoint and a corner point
     rhos = 0.5 * ones(4)
     a = 1 / sqrt(3)
-    deltarhos = 0.1 * ones(4)  # delta for finite differences
+    deltarhos = 0.25 * ones(4)  # delta for finite differences
 
     while True:  # while method has not converged
         # print("################## new iteration #############")
         rhs = f(rhos, omegas, a, x0, x1, z0, z1, areas)
+        print("##")
+        print(rhs)
+        print(rhos)
         if norm(rhs) < 1e-5:
             break
         mat = df(rhos, omegas, a, x0, x1, z0, z1, areas, deltarhos)
@@ -144,6 +149,7 @@ def df(rhos, omegas, a, x0, x1, z0, z1, areas, deltarhos):
     return dweights
 
 
+# @jit
 def f(rhos, omegas, a, x0, x1, z0, z1, areas):
     y = areas - computeweights(rhos, omegas, a, x0, x1, z0, z1)
     return y
@@ -151,7 +157,7 @@ def f(rhos, omegas, a, x0, x1, z0, z1, areas):
 
 #    return 1 / 2 * sum(y ** 2)
 
-
+# @jit
 def computeweights(rhos, omegas, a, x0, x1, z0, z1):
     """ Computes the corresponding basis functions given rho.
     From that, we compute the integral of every basis function
@@ -176,11 +182,12 @@ def computeweights(rhos, omegas, a, x0, x1, z0, z1):
                     + c[3, i] * z / r
                     ) * abs(a ** 1 / r ** 3)
 
-        val, err = dblquad(bi,z0,z1,x0,x1)
+        val, err = dblquad(bi, z0, z1, x0, x1)
         weights[i] = val
     return weights
 
 
+# @jit
 def computeomegas(x0, x1, z0, z1):
     a = 1 / sqrt(3)
     # compute cell midpoint
@@ -210,6 +217,7 @@ def computeomegas(x0, x1, z0, z1):
     return [omega0, omega1, omega2, omega3]
 
 
+# @jit
 def computeareas(omegas, x0, x1, z0, z1):
     a = 1 / sqrt(3)
     # compute cell midpoint
